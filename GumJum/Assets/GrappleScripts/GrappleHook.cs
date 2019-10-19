@@ -9,9 +9,9 @@ public class GrappleHook : MonoBehaviour
     Rigidbody player_body, rb;
     int layer_mask;
     bool can_fire, fired, broken, dropped;
-    float pull_force = 10f, max_distance = 20f, current_distance, speed = 10f, 
+    float pull_force = 10f, max_distance = 20f, current_distance, speed = 20f, 
         return_force = 20f, last_crank = -1, crank_cooldown = 0.5f, 
-        block_distance = 2f, break_distance = 10f, pick_up_distance = 2f;
+        block_distance = 2f, break_distance = 20f, pick_up_distance = 2f;
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
@@ -35,18 +35,16 @@ public class GrappleHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float distance = Vector3.Distance(transform.position, grapple_gun.start_point.position);
+        // if broken, return
         if (dropped)
-        {
-            float distance = Vector3.Distance(transform.position, grapple_gun.start_point.position);
             if (distance < pick_up_distance)
                 grapple_gun.PickUp();
-            else if (distance > max_distance + break_distance)
-                Break();
-        }
-        // if broken, return
+        if (distance > break_distance)
+            Break();
         if (broken)
-        return;
-
+            return;
+        CheckRope();
         lr.SetPositions(new Vector3[] {grapple_gun.start_point.position, transform.position});
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
@@ -57,9 +55,11 @@ public class GrappleHook : MonoBehaviour
         // if fired, then check distance, drop if too far
         else if (fired)
         {
-            print("Going");
             if (current_distance < max_distance)
+            {
+                transform.right = -rb.velocity.normalized;
                 current_distance += Time.deltaTime;
+            }
             else
                 Drop();
         }
@@ -76,6 +76,7 @@ public class GrappleHook : MonoBehaviour
             hook_collider.enabled = true;
             transform.parent = null;
             fired = true;
+            can_fire = false;
             lr.enabled = true;
             rb.isKinematic = false;
             rb.velocity = dir * speed;
@@ -117,6 +118,8 @@ public class GrappleHook : MonoBehaviour
 
     public void Break()
     {
+        if (broken)
+            return;
         Drop();
         // change bools n stuff
         lr.enabled = false;
@@ -179,11 +182,15 @@ public class GrappleHook : MonoBehaviour
         // if hit non-player something and distance from hook is significant, break
         if (!can_fire)
         {
-            Vector3 dir = (grapple_gun.start_point.position - transform.position);
-            if (Physics.Raycast(grapple_gun.start_point.position, dir.normalized, 
-                out RaycastHit hit, dir.magnitude, layer_mask)) 
-                if (Vector3.Distance(hit.point, transform.position) > block_distance)
-                    Break();
+            print("Yeah");
+            Vector3 dir = (transform.position - player_body.position);
+            if (Physics.Raycast(player_body.position, dir.normalized,
+                out RaycastHit hit, dir.magnitude, layer_mask))
+            if (Vector3.Distance(hit.point, transform.position) > block_distance)
+            {
+                print(hit.collider);
+                Break();
+            }
         }
     }
 
@@ -195,6 +202,9 @@ public class GrappleHook : MonoBehaviour
         // if fired and wall, stick in wall
         // if monster, then monster.Stick()
         if (fired)
+        {
+            print("FIRED");
             Stick(collision.collider);
+        }
     }
 }

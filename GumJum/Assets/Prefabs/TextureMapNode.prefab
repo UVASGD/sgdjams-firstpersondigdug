@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3633409651422197113}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Mineable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,4 +149,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e3ee5e2ee13e741af0e697c1e85e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 0}

@@ -41,6 +41,7 @@ public class Monster : MonoBehaviour {
 
 	private void Start () {
 		seesPlayer = false;
+		//transform.forward = Random.onUnitSphere;
 
 		if (!player) {
 			player = GameObject.FindWithTag("Player");
@@ -54,13 +55,11 @@ public class Monster : MonoBehaviour {
 	}
 
 	private void Update () {
-
-		//transform.forward = Random.onUnitSphere;
 		if (!player) return;
 
 		UpdateStates();
 		StateController();
-		transform.position += transform.forward * Time.deltaTime;
+		transform.position += transform.forward * speed * Time.deltaTime;
 	}
 
 	private void ShootRaycasts () {
@@ -115,8 +114,9 @@ public class Monster : MonoBehaviour {
 					switchDirectionsCD -= Time.deltaTime;
 				}
 
-				if (forward && forwardHit.distance < 1f) {
-					print("SWITCH DIRECTIONS!");
+				if (Physics.Raycast(transform.position, transform.forward, 1f, LayerMask.GetMask("Wall"))) {
+					//if (forward && forwardHit.distance < 1f) {
+						print("SWITCH DIRECTIONS!");
 					switchDirectionsCD = 0.5f;
 					List<Vector3> directions = new List<Vector3>();
 					if (up && upHit.distance > 1f) {
@@ -131,10 +131,16 @@ public class Monster : MonoBehaviour {
 					if (right && rightHit.distance > 1f) {
 						directions.Add(Vector3.right);
 					}
+					if (forward && forwardHit.distance > 1f) {
+						directions.Add(Vector3.forward);
+					}
+					if (back && backHit.distance > 1f) {
+						directions.Add(Vector3.back);
+					}
 
 					print("Options: " + directions.Count);
 					if (directions.Count == 0) {
-						print("!!!!!");
+						//print("!!!!!");
 						transform.forward = -transform.forward;
 					} else {
 						Vector3 direction = directions[Random.Range(0, directions.Count)];

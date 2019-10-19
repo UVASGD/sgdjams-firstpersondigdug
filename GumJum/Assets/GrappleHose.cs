@@ -14,6 +14,8 @@ public class GrappleHose : MonoBehaviour
 
     int count;
 
+    public Transform renderPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +45,7 @@ public class GrappleHose : MonoBehaviour
         } */
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         // If we hit something thats not the player
         if(!collision.gameObject.CompareTag("Player"))

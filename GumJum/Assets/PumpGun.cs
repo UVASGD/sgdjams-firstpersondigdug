@@ -9,6 +9,8 @@ public class PumpGun : MonoBehaviour
     public Transform renderPoint;
 
     public float maxRange;
+    public int recallClicksNeeded;
+    int recallCount;
 
     bool fired = false;  // True if "hose" as been fired
     GameObject hooked;  // GameObject that hose has hooked onto. Typically an enemy if you have good aim. (Change GameObject to enemy script)
@@ -17,6 +19,8 @@ public class PumpGun : MonoBehaviour
     GrappleHose hoseGrapple;  // Reference to GrappleHose script
 
     LineRenderer line;
+
+    public GameObject hookObject;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +34,7 @@ public class PumpGun : MonoBehaviour
     {
         if(fired)
         {
-            Vector3[] linePos = { renderPoint.position, hose.transform.position };
+            Vector3[] linePos = { renderPoint.position, hoseGrapple.renderPoint.position };
             line.SetPositions(linePos);
             if(hoseGrapple.hooked)  // If we hit something with the hose/grapple/pump thingy
             {
@@ -42,7 +46,12 @@ public class PumpGun : MonoBehaviour
             }
             if (Input.GetButtonDown("Fire3"))
             {
-                Recall();
+                recallCount++;
+                print("Recalling: " + recallCount);
+                if (recallCount >= 10)
+                {
+                    Recall();
+                }
             }
         }
         else
@@ -63,6 +72,8 @@ public class PumpGun : MonoBehaviour
             hoseGrapple = hose.GetComponent<GrappleHose>();
             fired = true;
             line.enabled = true;
+            hookObject.SetActive(false);
+            recallCount = 0;
         }
     }
 
@@ -74,6 +85,7 @@ public class PumpGun : MonoBehaviour
             fired = false;
             hoseGrapple = null;
             line.enabled = false;
+            hookObject.SetActive(true);
         }
     }
 }

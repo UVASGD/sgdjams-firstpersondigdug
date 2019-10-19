@@ -12,7 +12,17 @@ public class Carver : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision) {
         Debug.Log("Boy i love killin");
-        Destroy(collision.gameObject);
+
+        Block block = collision.GetComponent<Block>();
+
+        if (block)
+        {
+            block.Break();
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     public void SetDimens(float height, float radius) {

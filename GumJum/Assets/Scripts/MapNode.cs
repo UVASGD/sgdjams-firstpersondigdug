@@ -2,17 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void Event();
+
 public class MapNode : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //public Event onBreak;
+
+    public bool Broken { get; private set; } = false;
+
+    public Block Block { get; private set; }
+
+    private void Awake()
     {
-        
+        Block = GetComponentInChildren<Block>();
+
+        Block.onBreak += BlockBroke;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void BlockBroke()
     {
-        
+        Debug.Log("ops I brok");
+        //onBreak?.Invoke();
+        Broken = true;
+    }
+
+    public void Break()
+    {
+        if (!Broken && Block)
+        {
+            Block.Break();
+        }
+
+        Broken = true;
     }
 }

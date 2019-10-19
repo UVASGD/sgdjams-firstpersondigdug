@@ -23,6 +23,12 @@ public class MapGen : MonoBehaviour
     [SerializeField]
     int bois;
 
+    [SerializeField]
+    int rocks;
+
+    [SerializeField]
+    GameObject rock_prefab;
+
     Vector3 offset;
 
     MapNode[,,] map;
@@ -40,6 +46,7 @@ public class MapGen : MonoBehaviour
 
         Allocate();
         CarveSeams();
+        PlaceRocks();
     }
 
     void Allocate()
@@ -90,7 +97,7 @@ public class MapGen : MonoBehaviour
         CarveSeam(
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
-            radius = 0.7f,
+            radius = 0.25f,
             false,
             orientations[0]
         );
@@ -113,5 +120,51 @@ public class MapGen : MonoBehaviour
     {
         // TODO: Spawn Boi Here
         Instantiate(prefab, transform);
+    }
+
+    void PlaceRocks()
+    {
+        for (int i = 0; i < rocks; i++)
+        {
+            Vector3Int at;
+            MapNode over;
+            bool goodSpot = false;
+
+            int tries = 0;
+            while(!goodSpot)
+            {
+                at = new Vector3Int(
+                Random.Range(1, mapDimens.x - 1),
+                Random.Range(1, mapDimens.y - 1),
+                Random.Range(1, mapDimens.z - 1)
+                );
+                over = map[at.x, at.y - 1, at.z];
+                
+                if (!over.Broken)
+                {
+                    goodSpot = true;
+                    //MapNode atNode = map[at.x, at.y, at.z];
+                    //atNode.Break();
+
+                    PlaceRock(at, over.Block);
+                }
+
+                if (tries > 50)
+                {
+                    Debug.Log("i screm");
+                    break;
+
+                }
+                tries++;
+            }
+        }
+    }
+
+
+    void PlaceRock(Vector3Int at, Block over)
+    {
+        Rock rock = Instantiate(rock_prefab, transform).GetComponent<Rock>();
+        rock.transform.localPosition = (at - offset) * breadth;
+        rock.SetSupportBlock(over);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour
 {
+    public float mineRange;
     GrappleGun grapple_gun;
     LineRenderer lr;
     Rigidbody player_body, rb;
@@ -15,10 +16,13 @@ public class GrappleHook : MonoBehaviour
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
+    
+    public Animator anim;
 
     // Start is called before the first frame update
     void Awake()
     {
+
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
         hook_collider = GetComponentInChildren<Collider>();
@@ -74,13 +78,24 @@ public class GrappleHook : MonoBehaviour
         // if can_fire go, go, go
         if (can_fire)
         {
-            hook_collider.enabled = true;
-            transform.parent = null;
-            fired = true;
-            can_fire = false;
-            lr.enabled = true;
-            rb.isKinematic = false;
-            rb.velocity = dir * speed;
+            RaycastHit check;
+            if (Physics.Raycast(transform.position, transform.right * -1f, out check, mineRange) &&
+                check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
+            {
+                anim.SetTrigger("Mine");
+                check.transform.gameObject.GetComponent<Block>().Break();
+            }
+            else
+            {
+                anim.SetTrigger("Shoot");
+                hook_collider.enabled = true;
+                transform.parent = null;
+                fired = true;
+                can_fire = false;
+                lr.enabled = true;
+                rb.isKinematic = false;
+                rb.velocity = dir * speed;
+            }
         }
     }
 
@@ -144,6 +159,7 @@ public class GrappleHook : MonoBehaviour
         if (dropped)
             if (last_crank < 0 || (Time.time - last_crank > crank_cooldown))
             {
+                anim.SetBool("Reel", true);
                 Vector3 dir = (grapple_gun.start_point.position - transform.position).normalized;
                 rb.AddForce(dir * return_force, ForceMode.Impulse);
                 last_crank = Time.time;
@@ -173,6 +189,7 @@ public class GrappleHook : MonoBehaviour
         transform.rotation = grapple_gun.start_point.rotation;
         transform.position = grapple_gun.start_point.position;
         transform.parent = grapple_gun.start_point;
+        anim.SetBool("Reel", false);
     }
 
     public void CheckRope() 

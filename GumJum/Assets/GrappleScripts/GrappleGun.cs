@@ -7,7 +7,7 @@ public class GrappleGun : MonoBehaviour
 {
     Player player;
     GrappleHook grapple_hook;
-    public float mineRange;
+    
     [HideInInspector]
     public Transform start_point;
 
@@ -33,17 +33,7 @@ public class GrappleGun : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                RaycastHit check;
-                
-                if (Physics.Raycast(transform.position, transform.forward, out check, mineRange) && 
-                    check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
-                {
-                    check.transform.gameObject.GetComponent<Block>().Break();
-                }
-                else
-                {
-                    grapple_hook.Fire(transform.forward);
-                }
+                grapple_hook.Fire(transform.forward);
             }
             if (Input.GetButtonDown("Fire2"))
             {

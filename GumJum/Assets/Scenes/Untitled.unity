@@ -155,6 +155,7 @@ MonoBehaviour:
   mapDimens: {x: 10, y: 10, z: 10}
   seams: 3
   bois: 0
+  validStartPositions: []
 --- !u!4 &640808979
 Transform:
   m_ObjectHideFlags: 0
@@ -251,6 +252,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1727045794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1727045796}
+  - component: {fileID: 1727045795}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1727045795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727045794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d1e83d3c10441b8930d1f3dd0b5cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 640808977}
+  seesPlayer: 0
+  up: 0
+  down: 0
+  left: 0
+  right: 0
+  forward: 0
+  back: 0
+  state: 0
+  speed: 1
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetVelocity: {x: 0, y: 0, z: 0}
+--- !u!4 &1727045796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727045794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1747517205
 GameObject:

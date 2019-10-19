@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapGen : MonoBehaviour
 {
+	public static MapGen instance;
 
     [SerializeField]
     GameObject prefab;
@@ -25,7 +26,11 @@ public class MapGen : MonoBehaviour
 
     Vector3 offset;
 
-    MapNode[,,] map;
+    public MapNode[,,] map;
+	public List<Vector3> validStartPositions;
+
+
+
 
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
@@ -34,8 +39,27 @@ public class MapGen : MonoBehaviour
         Quaternion.Euler(0, 0, 90),
     };
 
-    void Start()
+	public Vector3 GetRandomStartPosition () {
+		if (validStartPositions.Count == 0) {
+			return Vector3.zero;
+		}
+		int rand = Random.Range(0, validStartPositions.Count);
+		Vector3 pos = validStartPositions[rand];
+		validStartPositions.RemoveAt(rand);
+		return pos;
+	}
+
+	private void Awake () {
+		if (instance) {
+			Destroy(gameObject);
+		} else {
+			instance = this;
+		}
+	}
+
+	void Start()
     {
+		validStartPositions = new List<Vector3>();
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
         Allocate();

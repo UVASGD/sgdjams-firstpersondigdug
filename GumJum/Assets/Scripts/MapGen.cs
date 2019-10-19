@@ -17,6 +17,16 @@ public class MapGen : MonoBehaviour
     [SerializeField]
     Vector3Int mapDimens;
 
+    [SerializeField]
+    int seams;
+
+    [SerializeField]
+    int bois;
+
+    Vector3 offset;
+
+    MapNode[,,] map;
+
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
         Quaternion.Euler(90, 0, 0),
@@ -24,23 +34,17 @@ public class MapGen : MonoBehaviour
         Quaternion.Euler(0, 0, 90),
     };
 
-    // Start is called before the first frame update
     void Start()
     {
+        offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
+
         Allocate();
-
-        Carve(new Vector3Int(0, 0, -5), 4, 0.4f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CarveSeams();
     }
 
     void Allocate()
     {
-        Vector3 offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
+        map = new MapNode[mapDimens.x, mapDimens.y, mapDimens.z];
 
         for (int x=0; x<mapDimens.x; x++)
         {
@@ -50,19 +54,64 @@ public class MapGen : MonoBehaviour
                 {
                     GameObject obj = Instantiate(prefab, transform);
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
+
+                    map[x, y, z] = obj.GetComponent<MapNode>();
                 }
             }
         }
     }
 
-    void Carve(Vector3Int center, float height, float radius)
+    void CarveSeams() {
+        Vector3 position;
+        int height;
+        float radius;
+        bool spawn_boi = false;
+
+        for (int i = 0; i < seams; i++)
+        {
+            position = new Vector3(
+                Random.Range(0, mapDimens.x),
+                Random.Range(0, mapDimens.y),
+                Random.Range(0, mapDimens.z)
+                ) - offset;
+            height = Random.Range(2, 4);
+            radius = 0.5f;
+            spawn_boi = i < bois;
+
+            CarveSeam(
+                position,
+                height,
+                radius,
+                spawn_boi,
+                orientations[Random.Range(0, orientations.Length)]
+            );
+        }
+
+        CarveSeam(
+            new Vector3(0f, mapDimens.y / 2, 0f),
+            mapDimens.y / 2,
+            radius = 0.7f,
+            false,
+            orientations[0]
+        );
+    }
+
+    void CarveSeam(Vector3 center, float height, float radius, bool spawn_boi, Quaternion orientation)
     {
-        Debug.Log("called!");
         Carver carve = Instantiate(carver, transform);
         carve.transform.localPosition = center;
 
-        carve.transform.localRotation = orientations[Random.Range(0, orientations.Length)];
+        carve.transform.localRotation = orientation;
 
         carve.SetDimens(height * breadth, radius * breadth);
+
+        if (spawn_boi)
+            SpawnBoiAt(center);
+    }
+
+    void SpawnBoiAt(Vector3 center)
+    {
+        // TODO: Spawn Boi Here
+        Instantiate(prefab, transform);
     }
 }

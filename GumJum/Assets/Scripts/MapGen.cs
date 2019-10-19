@@ -90,7 +90,7 @@ public class MapGen : MonoBehaviour
         CarveSeam(
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
-            radius = 0.7f,
+            radius = 0.25f,
             false,
             orientations[0]
         );

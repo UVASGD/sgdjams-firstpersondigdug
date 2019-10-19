@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DeathType { Rock, Goggle, Dragon, Fire, Fall }
+
 public class Player : MonoBehaviour
 {
     [HideInInspector]
@@ -19,8 +21,9 @@ public class Player : MonoBehaviour
         
     }
 
-    public void Die()
+    public void Die(DeathType deathType)
     {
-
+        can_input = false;
+        GameManager.Death(deathType);
     }
 }

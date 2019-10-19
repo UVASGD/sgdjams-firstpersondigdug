@@ -22,7 +22,7 @@ public class GrappleHook : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        anim = GetComponentInParent<Animator>();
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
         hook_collider = GetComponentInChildren<Collider>();

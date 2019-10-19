@@ -49,7 +49,7 @@ public class GrappleHook : MonoBehaviour
         if (broken)
             return;
         CheckRope();
-        lr.SetPositions(new Vector3[] {grapple_gun.start_point.position, transform.position});
+        lr.SetPositions(new Vector3[] {grapple_gun.render_point.position, transform.position});
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {

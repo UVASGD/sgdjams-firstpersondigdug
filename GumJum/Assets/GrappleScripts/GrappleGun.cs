@@ -9,7 +9,7 @@ public class GrappleGun : MonoBehaviour
     GrappleHook grapple_hook;
     
     [HideInInspector]
-    public Transform start_point;
+    public Transform start_point, render_point;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,6 +17,7 @@ public class GrappleGun : MonoBehaviour
         player = GetComponentInParent<Player>();
         grapple_hook = GetComponentInChildren<GrappleHook>();
         start_point = transform.FindDeepChild("start_point");
+        render_point = transform.FindDeepChild("render_point");
     }
 
     private void Start()

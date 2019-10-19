@@ -14,6 +14,9 @@ public class Jetpack : MonoBehaviour
     float rechargeTime = 2f;
 
     [SerializeField]
+    bool recharges = true;
+
+    [SerializeField]
     float lockTime = 1f;
 
     //[SerializeField]
@@ -24,6 +27,9 @@ public class Jetpack : MonoBehaviour
 
     //[SerializeField]
     float fuelLevel = 0f;
+
+    [SerializeField]
+    JetpackVis vis;
 
     Rigidbody rb;
 
@@ -47,12 +53,12 @@ public class Jetpack : MonoBehaviour
                 lockTimer = 0f;
             }
         } 
-        else if (fuelLevel <= 1f)
+        else if (recharges && fuelLevel <= 1f)
         {
             fuelLevel += Time.deltaTime / rechargeTime;
         }
 
-        if (locked)
+        if (recharges && locked)
         {
             lockTimer += Time.deltaTime;
 
@@ -62,5 +68,8 @@ public class Jetpack : MonoBehaviour
                 locked = false;
             }
         }
+
+        if (vis)
+            vis.SetFuelLevel(fuelLevel);
     }
 }

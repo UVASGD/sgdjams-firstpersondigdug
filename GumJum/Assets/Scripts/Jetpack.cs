@@ -53,9 +53,12 @@ public class Jetpack : MonoBehaviour
                 lockTimer = 0f;
             }
         } 
-        else if (recharges && fuelLevel <= 1f)
+        else if (recharges && fuelLevel < 1f)
         {
             fuelLevel += Time.deltaTime / rechargeTime;
+
+            if (fuelLevel > 1f)
+                fuelLevel = 1f;
         }
 
         if (recharges && locked)

@@ -238,6 +238,9 @@ MonoBehaviour:
   mapDimens: {x: 10, y: 10, z: 10}
   seams: 3
   bois: 0
+  rocks: 5
+  rock_prefab: {fileID: 6448675483973567817, guid: 2cc08c5def60dd14c958adaf1a172700,
+    type: 3}
 --- !u!4 &1413781449
 Transform:
   m_ObjectHideFlags: 0

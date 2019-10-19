@@ -21,13 +21,13 @@ public class Monster : MonoBehaviour {
 
 	MapGen mapGenerator;
 
-	private RaycastHit playerHit;
-	private RaycastHit upHit;
-	private RaycastHit downHit;
-	private RaycastHit leftHit;
-	private RaycastHit rightHit;
-	private RaycastHit forwardHit;
-	private RaycastHit backHit;
+	public RaycastHit playerHit;
+	public RaycastHit upHit;
+	public RaycastHit downHit;
+	public RaycastHit leftHit;
+	public RaycastHit rightHit;
+	public RaycastHit forwardHit;
+	public RaycastHit backHit;
 
 	public MonsterState state;
 	private MonsterState stateLF;
@@ -108,50 +108,79 @@ public class Monster : MonoBehaviour {
 				//	print("Distance: " + forwardHit.distance);
 				//}
 
-				if (switchDirectionsCD > 0f) {
-					break;
-				} else {
-					switchDirectionsCD -= Time.deltaTime;
-				}
+				//if (switchDirectionsCD > 0f) {
+				//	break;
+				//} else {
+				//	switchDirectionsCD -= Time.deltaTime;
+				//}
 
 				if (Physics.Raycast(transform.position, transform.forward, 1f, LayerMask.GetMask("Wall"))) {
 					//if (forward && forwardHit.distance < 1f) {
-						print("SWITCH DIRECTIONS!");
+					print("SWITCH DIRECTIONS!");
 					switchDirectionsCD = 0.5f;
+
+					//Debug.Log("Up: %d, Down: %d, Left: %d, Right: %d, Forward: %d, Back: %d",
+					//	  upHit.distance, downHit.distance, leftHit.distance, rightHit.distance, forwardHit.distance, backHit.distance);
+					Debug.Log("Up: " + upHit.distance + " Down: " + downHit.distance +
+							  " Left: " + leftHit.distance + " Right: " + rightHit.distance +
+							  " Forward: " + forwardHit.distance + " Back: " + backHit.distance);
+
 					List<Vector3> directions = new List<Vector3>();
-					if (up && upHit.distance > 1f) {
+					if (up && upHit.distance > 1f && transform.forward != Vector3.up && transform.forward != Vector3.down) {
+						print("Up");
+						directions.Add(Vector3.up);
+					} else if (!up) {
 						directions.Add(Vector3.up);
 					}
-					if (down && downHit.distance > 1f) {
+					if (down && downHit.distance > 1f && transform.forward != Vector3.down && transform.forward != Vector3.up) {
+						print("Down");
+						directions.Add(Vector3.down);
+					} else if (!down) {
 						directions.Add(Vector3.down);
 					}
-					if (left && leftHit.distance > 1f) {
+					if (left && leftHit.distance > 1f && transform.forward != Vector3.left && transform.forward != Vector3.right) {
+						print("Left");
+						directions.Add(Vector3.left);
+					} else if (!left) {
 						directions.Add(Vector3.left);
 					}
-					if (right && rightHit.distance > 1f) {
+					if (right && rightHit.distance > 1f && transform.forward != Vector3.right && transform.forward != Vector3.left) {
+						print("Right");
+						directions.Add(Vector3.right);
+					} else if (!right) {
 						directions.Add(Vector3.right);
 					}
-					if (forward && forwardHit.distance > 1f) {
+					if (forward && forwardHit.distance > 1f && transform.forward != Vector3.forward && transform.forward != Vector3.back) {
+						print("Forward");
+						directions.Add(Vector3.forward);
+					} else if (!forward) {
 						directions.Add(Vector3.forward);
 					}
-					if (back && backHit.distance > 1f) {
+					if (back && backHit.distance > 1f && transform.forward != Vector3.back && transform.forward != Vector3.forward) {
+						print("Back");
+						directions.Add(Vector3.back);
+					} else if (!back) {
 						directions.Add(Vector3.back);
 					}
 
 					print("Options: " + directions.Count);
 					if (directions.Count == 0) {
-						//print("!!!!!");
+						print("!!!!!");
 						transform.forward = -transform.forward;
 					} else {
 						Vector3 direction = directions[Random.Range(0, directions.Count)];
 						print("Setting Forward from " + transform.forward + " to " + direction);
-						print("Before: " + transform.forward);
-						transform.forward = direction;
-						print("After: " + transform.forward);
 						if (transform.forward != Vector3.up) {
 							transform.up = Vector3.up;
 						}
+						print("Before: " + transform.forward);
+						transform.forward = direction;
+						print("After: " + transform.forward);
+						
+						print("Afterer: " + transform.forward);
 					}
+				} else {
+					//print("NO WALL");
 				}
 				//targetVelocity = transform.forward * speed;
 				break;

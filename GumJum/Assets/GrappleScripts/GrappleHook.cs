@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour
 {
+    public float mineRange;
     GrappleGun grapple_gun;
     LineRenderer lr;
     Rigidbody player_body, rb;
     int layer_mask;
     bool can_fire, fired, broken, dropped;
-    float pull_force = 10f, max_distance = 20f, current_distance, speed = 20f, 
+    float pull_force = 200f, max_distance = 20f, current_distance, speed = 20f, 
         return_force = 20f, last_crank = -1, crank_cooldown = 0.5f, 
         block_distance = 2f, break_distance = 20f, pick_up_distance = 2f;
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
+    
+    public Animator anim;
 
     // Start is called before the first frame update
     void Awake()
     {
+
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
         hook_collider = GetComponentInChildren<Collider>();
@@ -49,7 +53,8 @@ public class GrappleHook : MonoBehaviour
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {
-            Vector3 dir = (player_body.transform.position - transform.position).normalized;
+            print("PULLING");
+            Vector3 dir = (transform.position - player_body.transform.position).normalized;
             player_body.AddForce(dir * pull_force * Time.deltaTime, ForceMode.Impulse);
         }
         // if fired, then check distance, drop if too far
@@ -73,13 +78,24 @@ public class GrappleHook : MonoBehaviour
         // if can_fire go, go, go
         if (can_fire)
         {
-            hook_collider.enabled = true;
-            transform.parent = null;
-            fired = true;
-            can_fire = false;
-            lr.enabled = true;
-            rb.isKinematic = false;
-            rb.velocity = dir * speed;
+            RaycastHit check;
+            if (Physics.Raycast(transform.position, transform.right * -1f, out check, mineRange) &&
+                check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
+            {
+                anim.SetTrigger("Mine");
+                check.transform.gameObject.GetComponent<Block>().Break();
+            }
+            else
+            {
+                anim.SetTrigger("Shoot");
+                hook_collider.enabled = true;
+                transform.parent = null;
+                fired = true;
+                can_fire = false;
+                lr.enabled = true;
+                rb.isKinematic = false;
+                rb.velocity = dir * speed;
+            }
         }
     }
 
@@ -135,7 +151,7 @@ public class GrappleHook : MonoBehaviour
         // if stuck in monster, monster.pump, if monster explodes, drop
         if (stuck_target) {
             if (stuck_target.is_monster)
-                print("PUMP IT UPPPP");
+                stuck_target.Pump();
             else
                 Drop();
         }
@@ -143,6 +159,7 @@ public class GrappleHook : MonoBehaviour
         if (dropped)
             if (last_crank < 0 || (Time.time - last_crank > crank_cooldown))
             {
+                anim.SetBool("Reel", true);
                 Vector3 dir = (grapple_gun.start_point.position - transform.position).normalized;
                 rb.AddForce(dir * return_force, ForceMode.Impulse);
                 last_crank = Time.time;
@@ -153,6 +170,7 @@ public class GrappleHook : MonoBehaviour
     {
         if (stuck_target)
         {
+            stuck_target.Release();
             stuck_target.OnBreak -= Drop;
             stuck_target = null;
         }
@@ -171,6 +189,7 @@ public class GrappleHook : MonoBehaviour
         transform.rotation = grapple_gun.start_point.rotation;
         transform.position = grapple_gun.start_point.position;
         transform.parent = grapple_gun.start_point;
+        anim.SetBool("Reel", false);
     }
 
     public void CheckRope() 
@@ -182,13 +201,11 @@ public class GrappleHook : MonoBehaviour
         // if hit non-player something and distance from hook is significant, break
         if (!can_fire)
         {
-            print("Yeah");
             Vector3 dir = (transform.position - player_body.position);
             if (Physics.Raycast(player_body.position, dir.normalized,
                 out RaycastHit hit, dir.magnitude, layer_mask))
             if (Vector3.Distance(hit.point, transform.position) > block_distance)
             {
-                print(hit.collider);
                 Break();
             }
         }
@@ -203,7 +220,6 @@ public class GrappleHook : MonoBehaviour
         // if monster, then monster.Stick()
         if (fired)
         {
-            print("FIRED");
             Stick(collision.collider);
         }
     }

@@ -9,6 +9,7 @@ TagManager:
   - Obst
   - Enemy
   - Wall
+  - Mineable
   layers:
   - Default
   - TransparentFX

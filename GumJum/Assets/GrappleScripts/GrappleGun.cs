@@ -7,6 +7,7 @@ public class GrappleGun : MonoBehaviour
 {
     Player player;
     GrappleHook grapple_hook;
+    
     [HideInInspector]
     public Transform start_point;
 

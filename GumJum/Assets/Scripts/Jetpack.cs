@@ -33,16 +33,19 @@ public class Jetpack : MonoBehaviour
 
     Rigidbody rb;
 
+    Player player;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         fuelLevel = 1f;
+        player = GetComponent<Player>();
     }
 
     void Update()
     {
 
-        if (!locked && Input.GetButton("Jump") && fuelLevel > 0f) {
+        if (player.can_input && !locked && Input.GetButton("Jump") && fuelLevel > 0f) {
             rb.AddForce(transform.up * thrust);
 
             fuelLevel -= Time.deltaTime / flyTime;

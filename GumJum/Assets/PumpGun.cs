@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PumpGun : MonoBehaviour
 {
+    [Header("Projectile References")]
     public GameObject projectile;
     public Transform spawnPoint;
     public Transform renderPoint;
 
-    public float maxRange;
+    [Header("Projectile Mechanics")]
+    public float maxRange;  // Not done
     public int recallClicksNeeded;
     int recallCount;
 
@@ -20,7 +22,10 @@ public class PumpGun : MonoBehaviour
 
     LineRenderer line;
 
+    //Visuals
+    [Header("Misc Referenced Game Objects")]
     public GameObject hookObject;
+    public ParticleSystem fx;
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +45,16 @@ public class PumpGun : MonoBehaviour
             {
                 if(Input.GetButtonDown("Fire2"))
                 {
+                    // Mash right mouse to pump
                     hoseGrapple.Pump();
                 }
                 
             }
             if (Input.GetButtonDown("Fire3"))
             {
-                recallCount++;
+                // Gotta mash the middle mouse button 10 times before you recall the hook
                 print("Recalling: " + recallCount);
+                recallCount++; 
                 if (recallCount >= 10)
                 {
                     Recall();
@@ -74,6 +81,7 @@ public class PumpGun : MonoBehaviour
             line.enabled = true;
             hookObject.SetActive(false);
             recallCount = 0;
+            fx.Play();
         }
     }
 

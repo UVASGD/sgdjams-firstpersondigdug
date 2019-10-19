@@ -43,15 +43,21 @@ public class Rock : MonoBehaviour
     {
         falling = true;
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("COLLIDING AA");
+        Debug.Log("FALLING: " + falling.ToString());
+
         if (!falling) return;
+
+        Debug.Log("faaaaaalling");
 
         Block block = collision.gameObject.GetComponent<Block>();
 
-        if (block)
+        if (block && block.transform.position.y < transform.position.y && (transform.position.x - block.transform.position.x) < 0.001f)
         {
+            Debug.Log("AAAAA GUCK I HIT SOMETHING");
             falling = false;
             block.onBreak += SupportBreak;
             return;

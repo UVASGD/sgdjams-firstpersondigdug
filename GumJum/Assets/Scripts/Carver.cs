@@ -7,7 +7,7 @@ public class Carver : MonoBehaviour
 {
     void LateUpdate()
     {
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collision) {

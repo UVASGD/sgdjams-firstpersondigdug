@@ -11,11 +11,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!64 &658463128
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24,7 +24,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6448675483973567817}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0389945530f283347a9f238e59016187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 0
+  fallSpeed: 5
 --- !u!1001 &3053336341921963072
 PrefabInstance:
   m_ObjectHideFlags: 0

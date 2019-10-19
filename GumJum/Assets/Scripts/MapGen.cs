@@ -63,6 +63,11 @@ public class MapGen : MonoBehaviour
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
 
                     map[x, y, z] = obj.GetComponent<MapNode>();
+
+                    if (x == 0 || z == 0 || y == 0|| x == mapDimens.x-1 || z == mapDimens.z-1)
+                    {
+                        map[x, y, z].Block.tag = "Untagged";
+                    }
                 }
             }
         }
@@ -127,7 +132,7 @@ public class MapGen : MonoBehaviour
         for (int i = 0; i < rocks; i++)
         {
             Vector3Int at;
-            MapNode over;
+            MapNode inNode;
             bool goodSpot = false;
 
             int tries = 0;
@@ -138,15 +143,15 @@ public class MapGen : MonoBehaviour
                 Random.Range(1, mapDimens.y - 1),
                 Random.Range(1, mapDimens.z - 1)
                 );
-                over = map[at.x, at.y - 1, at.z];
+                inNode = map[at.x, at.y, at.z];
                 
-                if (!over.Broken)
+                if (!inNode.Broken)
                 {
                     goodSpot = true;
                     //MapNode atNode = map[at.x, at.y, at.z];
                     //atNode.Break();
 
-                    PlaceRock(at, over.Block);
+                    PlaceRock(at, inNode.Block);
                 }
 
                 if (tries > 50)

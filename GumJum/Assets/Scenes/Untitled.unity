@@ -149,9 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb60472e959f2745a18f9a6cae0488c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  breadth: 1
-  mapDimens: {x: 0, y: 0, z: 0}
+  prefab: {fileID: 3942578132281436399, guid: 7fc64f48432a0294c9bbf430707056f4, type: 3}
+  carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
+  breadth: 2
+  mapDimens: {x: 10, y: 10, z: 10}
 --- !u!4 &640808979
 Transform:
   m_ObjectHideFlags: 0

@@ -9,17 +9,27 @@ public class MapGen : MonoBehaviour
     GameObject prefab;
 
     [SerializeField]
+    Carver carver;
+
+    [SerializeField]
     float breadth = 1f;
 
     [SerializeField]
     Vector3Int mapDimens;
 
-    GameObject[,,] map;
+    static Quaternion[] orientations = {
+        Quaternion.Euler(0, 0, 0),
+        Quaternion.Euler(90, 0, 0),
+        Quaternion.Euler(0, 90, 0),
+        Quaternion.Euler(0, 0, 90),
+    };
 
     // Start is called before the first frame update
     void Start()
     {
         Allocate();
+
+        Carve(new Vector3Int(0, 0, -5), 4, 0.4f);
     }
 
     // Update is called once per frame
@@ -30,7 +40,7 @@ public class MapGen : MonoBehaviour
 
     void Allocate()
     {
-        map = new GameObject[mapDimens.x, mapDimens.y, mapDimens.z];
+        Vector3 offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
         for (int x=0; x<mapDimens.x; x++)
         {
@@ -39,11 +49,20 @@ public class MapGen : MonoBehaviour
                 for (int z=0; z < mapDimens.z; z++)
                 {
                     GameObject obj = Instantiate(prefab, transform);
-                    map[x, y, z] = obj;
-
-                    obj.transform.localPosition = new Vector3(x, y, z) * breadth;
+                    obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
                 }
             }
         }
+    }
+
+    void Carve(Vector3Int center, float height, float radius)
+    {
+        Debug.Log("called!");
+        Carver carve = Instantiate(carver, transform);
+        carve.transform.localPosition = center;
+
+        carve.transform.localRotation = orientations[Random.Range(0, orientations.Length)];
+
+        carve.SetDimens(height * breadth, radius * breadth);
     }
 }

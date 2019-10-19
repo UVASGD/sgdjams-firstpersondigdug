@@ -151,8 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 3942578132281436399, guid: 7fc64f48432a0294c9bbf430707056f4, type: 3}
   carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
-  breadth: 2
+  breadth: 2.5
   mapDimens: {x: 10, y: 10, z: 10}
+  seams: 3
+  bois: 0
 --- !u!4 &640808979
 Transform:
   m_ObjectHideFlags: 0

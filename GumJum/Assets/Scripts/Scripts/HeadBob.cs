@@ -18,10 +18,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_OriginalCameraPosition;
 
 
-        private void Start()
+        private void Awake()
         {
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
+            rigidbodyFirstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();
        //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
         }
 

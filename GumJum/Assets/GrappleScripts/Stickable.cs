@@ -24,6 +24,24 @@ public class Stickable : MonoBehaviour
         
     }
 
+    public void Release()
+    {
+        /*
+            if (monster) {
+                monster.Release();    
+            }
+        */
+    }
+
+    public void Pump()
+    {
+        /*
+            if (monster) {
+                monster.Pump();
+            }
+        */
+    }
+
     private void OnDestroy()
     {
         OnBreak?.Invoke();

@@ -135,7 +135,7 @@ public class GrappleHook : MonoBehaviour
         // if stuck in monster, monster.pump, if monster explodes, drop
         if (stuck_target) {
             if (stuck_target.is_monster)
-                print("PUMP IT UPPPP");
+                stuck_target.Pump();
             else
                 Drop();
         }
@@ -153,6 +153,7 @@ public class GrappleHook : MonoBehaviour
     {
         if (stuck_target)
         {
+            stuck_target.Release();
             stuck_target.OnBreak -= Drop;
             stuck_target = null;
         }
@@ -182,13 +183,11 @@ public class GrappleHook : MonoBehaviour
         // if hit non-player something and distance from hook is significant, break
         if (!can_fire)
         {
-            print("Yeah");
             Vector3 dir = (transform.position - player_body.position);
             if (Physics.Raycast(player_body.position, dir.normalized,
                 out RaycastHit hit, dir.magnitude, layer_mask))
             if (Vector3.Distance(hit.point, transform.position) > block_distance)
             {
-                print(hit.collider);
                 Break();
             }
         }
@@ -203,7 +202,6 @@ public class GrappleHook : MonoBehaviour
         // if monster, then monster.Stick()
         if (fired)
         {
-            print("FIRED");
             Stick(collision.collider);
         }
     }

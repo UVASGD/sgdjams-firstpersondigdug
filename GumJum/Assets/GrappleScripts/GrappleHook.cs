@@ -22,7 +22,7 @@ public class GrappleHook : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        anim = GetComponentInParent<Animator>();
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
         hook_collider = GetComponentInChildren<Collider>();
@@ -49,7 +49,7 @@ public class GrappleHook : MonoBehaviour
         if (broken)
             return;
         CheckRope();
-        lr.SetPositions(new Vector3[] {grapple_gun.start_point.position, transform.position});
+        lr.SetPositions(new Vector3[] {grapple_gun.render_point.position, transform.position});
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {
@@ -78,6 +78,7 @@ public class GrappleHook : MonoBehaviour
         // if can_fire go, go, go
         if (can_fire)
         {
+            lr.enabled = true;
             RaycastHit check;
             if (Physics.Raycast(transform.position, transform.right * -1f, out check, mineRange) &&
                 check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
@@ -184,6 +185,7 @@ public class GrappleHook : MonoBehaviour
         last_crank = -1;
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
+        lr.enabled = false;
         current_distance = 0f;
         hook_collider.enabled = false;
         transform.rotation = grapple_gun.start_point.rotation;

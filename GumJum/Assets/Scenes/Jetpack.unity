@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 1571997516}
   - component: {fileID: 1571997515}
   - component: {fileID: 1571997514}
+  - component: {fileID: 1571997518}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -671,6 +672,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571997518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571997513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd9a0ef960c8064b8388c17f8962bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_monster: 0
 --- !u!1 &1985921864
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,51 +827,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4841698086294365212, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4841698086294365200, guid: 297c517a37630ab479acb60c5e0bbb92,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: cf63880488ec29f43a759ecd9c6c5123,
         type: 2}
-    - target: {fileID: 4841698086322670285, guid: 297c517a37630ab479acb60c5e0bbb92,
+    - target: {fileID: 4841698086294365201, guid: 297c517a37630ab479acb60c5e0bbb92,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: advancedSettings.airControl
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 709371370694733227, guid: 297c517a37630ab479acb60c5e0bbb92,
+    - target: {fileID: 4841698086322670287, guid: 297c517a37630ab479acb60c5e0bbb92,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8861356281491541204, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3095545490750712137, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8861356281464937896, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3095545490727254069, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 709371369765008115, guid: 297c517a37630ab479acb60c5e0bbb92,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: motionBob.VerticalBobRange
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 297c517a37630ab479acb60c5e0bbb92, type: 3}

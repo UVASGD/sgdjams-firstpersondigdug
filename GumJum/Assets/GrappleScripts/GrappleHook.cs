@@ -9,7 +9,7 @@ public class GrappleHook : MonoBehaviour
     Rigidbody player_body, rb;
     int layer_mask;
     bool can_fire, fired, broken, dropped;
-    float pull_force = 10f, max_distance = 20f, current_distance, speed = 20f, 
+    float pull_force = 200f, max_distance = 20f, current_distance, speed = 20f, 
         return_force = 20f, last_crank = -1, crank_cooldown = 0.5f, 
         block_distance = 2f, break_distance = 20f, pick_up_distance = 2f;
     FixedJoint joint;
@@ -49,7 +49,8 @@ public class GrappleHook : MonoBehaviour
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {
-            Vector3 dir = (player_body.transform.position - transform.position).normalized;
+            print("PULLING");
+            Vector3 dir = (transform.position - player_body.transform.position).normalized;
             player_body.AddForce(dir * pull_force * Time.deltaTime, ForceMode.Impulse);
         }
         // if fired, then check distance, drop if too far

@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4841698086294365201}
   - component: {fileID: 4841698086294365205}
   - component: {fileID: 4841698086294365215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
     groundCheckDistance: 0.1
     stickToGroundHelperDistance: 0.6
     slowDownRate: 20
-    airControl: 1
+    airControl: 0
     shellOffset: 0
 --- !u!114 &4841698086294365205
 MonoBehaviour:
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4841698086322670273}
   - component: {fileID: 4841698086322670286}
   - component: {fileID: 4841698086322670287}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -535,6 +535,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrappleGun
       objectReference: {fileID: 0}
+    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5397875596387932989, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -589,6 +594,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163848709129271875, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621424245945835486, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163848709102136127, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621424245921844898, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397875595185505380, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9799a2c8778174ba26545cd4b5bb8c, type: 3}

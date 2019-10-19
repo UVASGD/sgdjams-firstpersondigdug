@@ -43,6 +43,13 @@ public class Monster : MonoBehaviour {
 	private float distanceSinceLastChangedDirection;
 	private float timePhasing;
 	private float timeUntilPhase;
+
+	public float inflationLevel;
+	public float targetInflationLevel;
+	public bool inflating;
+	public bool stunned;
+
+	private Material mat;
 	
 
 	private void Start () {
@@ -62,15 +69,70 @@ public class Monster : MonoBehaviour {
 		timePhasing = 0f;
 
 		timeUntilPhase = Random.Range(7f, 12f);
+
+		inflationLevel = 0f;
+		targetInflationLevel = 0f;
+		inflating = false;
+		stunned = false;
+
+		mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
 	}
 
 	private void Update () {
 		if (!player) return;
 
-		UpdateStates();
-		StateController();
-		transform.position += transform.forward * speed * Time.deltaTime;
-		distanceSinceLastChangedDirection += speed * Time.deltaTime;
+		if (Input.GetKeyDown(KeyCode.K)) {
+			print("!FDAF");
+			Inflate();
+		}
+
+		//UpdateStates();
+		//StateController();
+		//transform.position += transform.forward * speed * Time.deltaTime;
+		//distanceSinceLastChangedDirection += speed * Time.deltaTime;
+	}
+
+	private void Inflate (float percentage = 0.25f) {
+		if (targetInflationLevel >= 1f) return;
+		targetInflationLevel += percentage;
+		if (!inflating) {
+			inflating = true;
+			
+			StartCoroutine(InflateCR());
+		}
+	}
+
+	IEnumerator InflateCR () {
+		inflating = true;
+		while (inflationLevel < targetInflationLevel) {
+			//print("ASDasdfadf");
+			inflationLevel += 0.5f * Time.deltaTime;
+			if (inflationLevel < 0.85f) {
+				mat.SetFloat("Vector1_561DD75D", inflationLevel);
+			} else {
+				if (inflationLevel < 0.85f + Time.deltaTime) {
+					Material newMat = new Material(Shader.Find("Shader Graphs/MonsterDissolve"));
+					newMat.SetTexture("Texture2D_F114E4E6", mat.GetTexture("Texture2D_6CC90963"));
+					newMat.SetColor("Color_D68C2B2B", mat.GetColor("Color_D68C2B2B"));
+					newMat.SetTexture("Texture2D_E4CC1E5A", mat.GetTexture("Texture2D_D67E17F2"));
+					newMat.SetFloat("Vector1_34123ECC", mat.GetFloat("Vector1_34123ECC"));
+					newMat.SetFloat("Vector1_561DD75D", mat.GetFloat("Vector1_561DD75D"));
+					newMat.SetFloat("Vector1_B6823E5C", mat.GetFloat("Vector1_B6823E5C"));
+					mat = newMat;
+				}
+			}
+			yield return new WaitForEndOfFrame();
+		}
+		if (inflationLevel >= 1f) {
+			inflationLevel = 1f;
+			mat.SetFloat("Vector1_561DD75D", inflationLevel);
+			Die();
+		}
+		inflating = false;
+	}
+
+	private void Die () {
+		Destroy(gameObject);
 	}
 
 	private void ChangeDirections (Vector3 direction) {
@@ -237,6 +299,7 @@ public class Monster : MonoBehaviour {
 		anim.SetBool("seesPlayer", seesPlayer);
 		anim.SetBool("canBeginPhasing", canBeginPhasing);
 		anim.SetBool("insideWall", insideWall);
+		anim.SetFloat("speed", speed);
 
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName("Patrolling")) {
 			state = MonsterState.patrolling;

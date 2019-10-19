@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6382690172420908356}
   - component: {fileID: 5223033114214419747}
   - component: {fileID: -3526744903360605515}
+  - component: {fileID: 519284803}
   m_Layer: 0
   m_Name: Boi1
   m_TagString: Untagged
@@ -108,13 +109,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   seesPlayer: 0
-  up: 0
-  down: 0
-  left: 0
-  right: 0
-  forward: 0
-  back: 0
+  canBeginPhasing: 0
+  insideWall: 0
   state: 0
-  speed: 1
+  speed: 2
   targetPosition: {x: 0, y: 0, z: 0}
   targetVelocity: {x: 0, y: 0, z: 0}
+--- !u!95 &519284803
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8830955386973270884}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d7316b303e364b5e92136f5846e18e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

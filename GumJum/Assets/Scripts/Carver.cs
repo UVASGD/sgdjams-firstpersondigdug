@@ -12,7 +12,6 @@ public class Carver : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision) {
 		//print("I love killing");
-		MapGen.instance.validStartPositions.Add(collision.transform.position);
 		Destroy(collision.gameObject);
     }
 

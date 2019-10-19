@@ -22,15 +22,16 @@ public class MapGen : MonoBehaviour
     int seams;
 
     [SerializeField]
-    int bois;
+    int boiCount;
+	[SerializeField]
+	GameObject[] bois;
+	int boisSpawned;
 
-    Vector3 offset;
+
+
+	Vector3 offset;
 
     public MapNode[,,] map;
-	public List<Vector3> validStartPositions;
-
-
-
 
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
@@ -39,27 +40,18 @@ public class MapGen : MonoBehaviour
         Quaternion.Euler(0, 0, 90),
     };
 
-	public Vector3 GetRandomStartPosition () {
-		if (validStartPositions.Count == 0) {
-			return Vector3.zero;
-		}
-		int rand = Random.Range(0, validStartPositions.Count);
-		Vector3 pos = validStartPositions[rand];
-		validStartPositions.RemoveAt(rand);
-		return pos;
-	}
-
 	private void Awake () {
 		if (instance) {
 			Destroy(gameObject);
 		} else {
 			instance = this;
 		}
+
+		boisSpawned = 0;
 	}
 
 	void Start()
     {
-		validStartPositions = new List<Vector3>();
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
         Allocate();
@@ -100,7 +92,7 @@ public class MapGen : MonoBehaviour
                 ) - offset;
             height = Random.Range(2, 4);
             radius = 0.5f;
-            spawn_boi = i < bois;
+            spawn_boi = i < boiCount;
 
             CarveSeam(
                 position,
@@ -114,7 +106,7 @@ public class MapGen : MonoBehaviour
         CarveSeam(
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
-            radius = 0.7f,
+            radius = 0.25f,
             false,
             orientations[0]
         );
@@ -135,7 +127,14 @@ public class MapGen : MonoBehaviour
 
     void SpawnBoiAt(Vector3 center)
     {
-        // TODO: Spawn Boi Here
-        Instantiate(prefab, transform);
+		print("Spawn boi!!!");
+		int index = bois.Length - 1;
+		if ( boisSpawned < Mathf.CeilToInt(boiCount * 2 / 3)) {
+			index = Random.Range(0, bois.Length - 1);
+		}
+
+		boisSpawned++;
+        GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
+		print(boi.name + ", " + boi.transform.position);
     }
 }

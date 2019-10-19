@@ -25,6 +25,8 @@ public class MapGen : MonoBehaviour
 
     Vector3 offset;
 
+    MapNode[,,] map;
+
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
         Quaternion.Euler(90, 0, 0),
@@ -42,6 +44,8 @@ public class MapGen : MonoBehaviour
 
     void Allocate()
     {
+        map = new MapNode[mapDimens.x, mapDimens.y, mapDimens.z];
+
         for (int x=0; x<mapDimens.x; x++)
         {
             for (int y=0; y<mapDimens.y; y++)
@@ -50,6 +54,8 @@ public class MapGen : MonoBehaviour
                 {
                     GameObject obj = Instantiate(prefab, transform);
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
+
+                    map[x, y, z] = obj.GetComponent<MapNode>();
                 }
             }
         }

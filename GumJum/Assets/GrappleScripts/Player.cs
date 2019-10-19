@@ -24,6 +24,6 @@ public class Player : MonoBehaviour
     public void Die(DeathType deathType)
     {
         can_input = false;
-        GameManager.Death(deathType);
+        GameManager.Instance.Die(deathType);
     }
 }

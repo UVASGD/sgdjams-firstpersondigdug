@@ -13,14 +13,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int dicks;
 
-    public static GameManager instance;
+    public static GameManager Instance;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (!instance)
-            instance = this;
-        else if (instance != this)
+        if (!Instance)
+            Instance = this;
+        else if (Instance != this)
         {
             Destroy(gameObject);
             return;

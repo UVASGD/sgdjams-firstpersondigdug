@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour
 {
-    public float mineRange;
     GrappleGun grapple_gun;
     LineRenderer lr;
     Rigidbody player_body, rb;
@@ -12,7 +11,7 @@ public class GrappleHook : MonoBehaviour
     bool can_fire, fired, broken, dropped;
     float pull_force = 200f, max_distance = 20f, current_distance, speed = 20f, 
         return_force = 20f, last_crank = -1, crank_cooldown = 0.5f, 
-        block_distance = 2f, break_distance = 20f, pick_up_distance = 2f;
+        block_distance = 2f, break_distance = 20f, pick_up_distance = 2f, mine_range = 3f;
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
@@ -22,7 +21,7 @@ public class GrappleHook : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        anim = GetComponentInParent<Animator>();
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
         hook_collider = GetComponentInChildren<Collider>();
@@ -78,12 +77,16 @@ public class GrappleHook : MonoBehaviour
         // if can_fire go, go, go
         if (can_fire)
         {
+            lr.enabled = true;
             RaycastHit check;
-            if (Physics.Raycast(transform.position, transform.right * -1f, out check, mineRange) &&
-                check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
+            if (Physics.Raycast(player_body.transform.position, player_body.transform.forward, out check, mine_range))  // If block is in range
             {
-                anim.SetTrigger("Mine");
-                check.transform.gameObject.GetComponent<Block>().Break();
+                print("AH");
+                if (check.transform.gameObject.CompareTag("Mineable"))
+                {
+                    anim.SetTrigger("Mine");
+                    check.transform.gameObject.GetComponent<Block>().Break();
+                }
             }
             else
             {
@@ -184,6 +187,7 @@ public class GrappleHook : MonoBehaviour
         last_crank = -1;
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
+        lr.enabled = false;
         current_distance = 0f;
         hook_collider.enabled = false;
         transform.rotation = grapple_gun.start_point.rotation;

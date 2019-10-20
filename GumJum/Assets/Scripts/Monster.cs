@@ -142,6 +142,15 @@ public class Monster : MonoBehaviour {
 		StartCoroutine(SquishCR());
     }
 
+	private void GenerateDeathRaycasts (int raycastCount) {
+		for (int i = 0; i < raycastCount; i++) {
+			RaycastHit hit;
+			if (Physics.Raycast(transform.position + transform.up, Random.onUnitSphere, out hit, 5f, LayerMask.GetMask("Wall"))) {
+				DecalController.SpawnDecal(hit);
+			}
+		}
+	}
+
 	IEnumerator SquishCR () {
 		stunned = true;
 		float squishAmount = 0f;

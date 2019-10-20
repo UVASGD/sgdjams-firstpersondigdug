@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterState {
-	patrolling,
-	phasing,
-	chasing
-}
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Stickable))]

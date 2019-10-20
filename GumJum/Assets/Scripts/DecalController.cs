@@ -2,9 +2,12 @@
 using UnityEngine;
 
 public class DecalController : MonoBehaviour {
+
+	public static DecalController instance;
+
 	[SerializeField]
 	[Tooltip("The prefab for the bullet hole")]
-	private GameObject bulletHoleDecalPrefab;
+	private GameObject decalPrefab;
 
 	[SerializeField]
 	[Tooltip("The number of decals to keep alive at a time.  After this number are around, old ones will be replaced.")]
@@ -14,6 +17,12 @@ public class DecalController : MonoBehaviour {
 	private Queue<GameObject> decalsActiveInWorld;
 
 	private void Awake () {
+		if (instance) {
+			Destroy(gameObject);
+		} else {
+			instance = this;
+		}
+
 		InitializeDecals();
 	}
 
@@ -27,22 +36,22 @@ public class DecalController : MonoBehaviour {
 	}
 
 	private void InstantiateDecal () {
-		var spawned = GameObject.Instantiate(bulletHoleDecalPrefab);
+		var spawned = GameObject.Instantiate(decalPrefab);
 		spawned.transform.SetParent(this.transform);
 
 		decalsInPool.Enqueue(spawned);
 		spawned.SetActive(false);
 	}
 
-	public void SpawnDecal (RaycastHit hit) {
-		GameObject decal = GetNextAvailableDecal();
+	public static void SpawnDecal (RaycastHit hit) {
+		GameObject decal = instance.GetNextAvailableDecal();
 		if (decal != null) {
 			decal.transform.position = hit.point;
 			decal.transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
 
 			decal.SetActive(true);
 
-			decalsActiveInWorld.Enqueue(decal);
+			instance.decalsActiveInWorld.Enqueue(decal);
 		}
 	}
 

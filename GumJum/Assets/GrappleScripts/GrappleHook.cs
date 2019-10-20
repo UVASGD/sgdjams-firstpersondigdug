@@ -53,7 +53,6 @@ public class GrappleHook : MonoBehaviour
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {
-            print("PULLING");
             Vector3 dir = (transform.position - player_body.transform.position).normalized;
             player_body.AddForce(dir * pull_force * Time.deltaTime, ForceMode.Impulse);
         }
@@ -82,7 +81,6 @@ public class GrappleHook : MonoBehaviour
             RaycastHit check;
             if (Physics.Raycast(player_cam.position, player_cam.forward, out check, mine_range))  // If block is in range
             {
-                print("AH");
                 if (check.transform.gameObject.CompareTag("Mineable"))
                 {
                     anim.SetTrigger("Mine");

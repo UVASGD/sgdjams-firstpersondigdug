@@ -35,7 +35,7 @@ public class FX_Object : MonoBehaviour
             aud.pitch += Random.Range(-pitch_range, pitch_range);
             aud.volume += Random.Range(-amp_range, 0);
             if (mixerGroup) aud.outputAudioMixerGroup = mixerGroup;
-            if (aud_clip && aud.clip.length > max_audio_len) max_audio_len = aud.clip.length;
+            if (aud.clip && aud.clip.length > max_audio_len) max_audio_len = aud.clip.length;
         }
         foreach (ParticleSystem part in GetComponentsInChildren<ParticleSystem>())
         {

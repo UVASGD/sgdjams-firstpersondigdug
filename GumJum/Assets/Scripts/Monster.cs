@@ -177,7 +177,7 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
-	private void Die () {
+	public void Die () {
 		Destroy(gameObject);
 	}
 

@@ -35,6 +35,9 @@ public class Jetpack : MonoBehaviour
 
     Player player;
 
+    public GameObject jetpack_fx;
+    GameObject current_fx;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -46,6 +49,8 @@ public class Jetpack : MonoBehaviour
     {
 
         if (player.can_input && !locked && Input.GetButton("Jump") && fuelLevel > 0f) {
+            if (!current_fx)
+                current_fx = Instantiate(jetpack_fx, transform);
             rb.AddForce(transform.up * thrust);
 
             fuelLevel -= Time.deltaTime / flyTime;

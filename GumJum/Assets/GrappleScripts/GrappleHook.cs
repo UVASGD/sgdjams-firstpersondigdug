@@ -18,6 +18,11 @@ public class GrappleHook : MonoBehaviour
     Transform player_cam;
     public Animator anim;
 
+
+    [Header("FX OBJECTS")]
+    public GameObject crank_fx, return_fx, fire_fx;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -90,6 +95,7 @@ public class GrappleHook : MonoBehaviour
                     return;
             }
             {
+                if (fire_fx) Instantiate(fire_fx, transform);
                 anim.SetTrigger("Shoot");
                 hook_collider.enabled = true;
                 transform.parent = null;
@@ -162,6 +168,8 @@ public class GrappleHook : MonoBehaviour
         if (dropped)
             if (last_crank < 0 || (Time.time - last_crank > crank_cooldown))
             {
+                if (return_fx) Instantiate(return_fx, transform);
+                if (crank_fx) Instantiate(crank_fx, transform);
                 anim.SetBool("Reel", true);
                 Vector3 dir = (grapple_gun.start_point.position - transform.position).normalized;
                 rb.AddForce(dir * return_force, ForceMode.Impulse);

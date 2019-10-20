@@ -298,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb60472e959f2745a18f9a6cae0488c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 344264230279622552, guid: f76e9f95a886d7e48be22115fd63b59d, type: 3}
-  carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
+  prefab: {fileID: 3102779047831477051, guid: c8953de0d48cf9b47bdbf509ee7ba2b8, type: 3}
+  carver: {fileID: 4676319908094783677, guid: f907bd8794264d94a919781a2d429efd, type: 3}
   breadth: 2
   mapDimens: {x: 6, y: 6, z: 6}
   seams: 0

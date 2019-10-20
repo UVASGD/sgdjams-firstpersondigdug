@@ -22,7 +22,7 @@ public class MapNode : MonoBehaviour
 
     void BlockBroke()
     {
-        Debug.Log("ops I brok");
+        //Debug.Log("ops I brok");
         //onBreak?.Invoke();
         Broken = true;
     }

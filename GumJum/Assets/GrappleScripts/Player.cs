@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DeathType { Rock, Goggle, Dragon, Fire, Fall }
+public enum DeathType { Crush, Goggle, Dragon, Fire, Fall }
 
 public class Player : MonoBehaviour
 {

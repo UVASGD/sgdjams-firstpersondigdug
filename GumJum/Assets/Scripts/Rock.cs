@@ -16,13 +16,12 @@ public class Rock : MonoBehaviour
 
     private void Awake()
     {
+        //falling = true;
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
 
         col = GetComponent<Collider>();
-        col.isTrigger = false;
-
-        Debug.Log("ugga bugga");
+        //col.isTrigger = false;
     }
 
     private void Update()
@@ -43,17 +42,26 @@ public class Rock : MonoBehaviour
     {
         falling = true;
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
-        if (!falling) return;
+        Debug.Log("FALLING at collide start: " + falling.ToString());
 
-        Block block = collision.gameObject.GetComponent<Block>();
-
-        if (block)
+        if (!falling)
         {
+            Debug.Log("Breaking");
+            return;
+        }
+
+        Debug.Log("faaaaaalling");
+
+        RockStop block = collision.gameObject.GetComponent<RockStop>();
+
+        if (block && block.transform.position.y < transform.position.y && (transform.position.x - block.transform.position.x) < 0.001f)
+        {
+            Debug.Log("AAAAA GUCK I HIT SOMETHING");
             falling = false;
-            block.onBreak += SupportBreak;
+            block.onDestroy += SupportBreak;
             return;
         }
 

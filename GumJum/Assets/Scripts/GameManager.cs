@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void AddPoints(int points)
     {
-        int score = PlayerPrefs.GetInt("HighScore");
+        int score = PlayerPrefs.GetInt("HighScore", 0);
         PlayerPrefs.SetInt("HighScore", points);
 
         //update UI

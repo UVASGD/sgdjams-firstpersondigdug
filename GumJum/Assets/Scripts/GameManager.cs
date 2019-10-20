@@ -46,4 +46,9 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    public static void GetPineapple()
+    {
+        Debug.Log("GOT PINEAPPLE AAAAAAAAAAAAAAAAAAA");
+    }
 }

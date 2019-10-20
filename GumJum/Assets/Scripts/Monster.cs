@@ -107,18 +107,21 @@ public class Monster : MonoBehaviour {
 		while (inflationLevel < targetInflationLevel) {
 			//print("ASDasdfadf");
 			inflationLevel += 0.5f * Time.deltaTime;
+			mat.SetFloat("_ExplosionAmount", inflationLevel);
 			if (inflationLevel < 0.85f) {
-				mat.SetFloat("Vector1_561DD75D", inflationLevel);
+				
 			} else {
 				if (inflationLevel < 0.85f + Time.deltaTime) {
 					Material newMat = new Material(Shader.Find("Shader Graphs/MonsterDissolve"));
-					newMat.SetTexture("Texture2D_F114E4E6", mat.GetTexture("Texture2D_6CC90963"));
-					newMat.SetColor("Color_D68C2B2B", mat.GetColor("Color_D68C2B2B"));
-					newMat.SetTexture("Texture2D_E4CC1E5A", mat.GetTexture("Texture2D_D67E17F2"));
-					newMat.SetFloat("Vector1_34123ECC", mat.GetFloat("Vector1_34123ECC"));
-					newMat.SetFloat("Vector1_561DD75D", mat.GetFloat("Vector1_561DD75D"));
-					newMat.SetFloat("Vector1_B6823E5C", mat.GetFloat("Vector1_B6823E5C"));
-					mat = newMat;
+					newMat.SetTexture("_Albedo", mat.GetTexture("_Albedo"));
+					newMat.SetColor("_AlbedoColor", mat.GetColor("_AlbedoColor"));
+					newMat.SetTexture("_Roughness", mat.GetTexture("_Roughness"));
+					newMat.SetFloat("_ExplosionRadius", mat.GetFloat("_ExplosionRadius"));
+					newMat.SetFloat("_ExplosionAmount", mat.GetFloat("_ExplosionAmount"));
+					newMat.SetFloat("_DissolveEdgeWidth", mat.GetFloat("_DissolveEdgeWidth"));
+					//mat = newMat;
+					transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material = newMat;
+					mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
 				}
 			}
 			yield return new WaitForEndOfFrame();

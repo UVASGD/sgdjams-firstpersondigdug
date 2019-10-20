@@ -424,6 +424,10 @@ MonoBehaviour:
   speed: 1
   targetPosition: {x: 0, y: 0, z: 0}
   targetVelocity: {x: 0, y: 0, z: 0}
+  inflationLevel: 0
+  targetInflationLevel: 0
+  inflating: 0
+  stunned: 0
 --- !u!1 &679364811
 GameObject:
   m_ObjectHideFlags: 0

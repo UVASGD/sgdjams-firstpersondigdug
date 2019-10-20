@@ -101,11 +101,11 @@ public class Monster : MonoBehaviour {
 			Deflate();
 		}
 
-		//UpdateStates();
-		//StateController();
-		//if (stunned) return;
-		//transform.position += transform.forward * speed * Time.deltaTime;
-		//distanceSinceLastChangedDirection += speed * Time.deltaTime;
+		UpdateStates();
+		StateController();
+		if (stunned) return;
+		transform.position += transform.forward * speed * Time.deltaTime;
+		distanceSinceLastChangedDirection += speed * Time.deltaTime;
 	}
 
 	public void Inflate (float percentage = 0.25f) {

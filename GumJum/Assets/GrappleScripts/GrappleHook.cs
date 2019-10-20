@@ -104,7 +104,7 @@ public class GrappleHook : MonoBehaviour
     public void Stick(Collider collider) 
     {
         // if object !has Stickable return
-        stuck_target = collider.GetComponent<Stickable>();
+        stuck_target = collider.GetComponentInParent<Stickable>();
         if (!stuck_target)
         {
             Drop();
@@ -113,7 +113,7 @@ public class GrappleHook : MonoBehaviour
         // set that joint, boy
         rb.velocity = Vector3.zero;
         joint = gameObject.AddComponent<FixedJoint>();
-        joint.connectedBody = collider.GetComponent<Rigidbody>();
+        joint.connectedBody = collider.GetComponentInParent<Rigidbody>();
         // if monster, then stick em
         stuck_target.OnBreak += Drop;
         // change bools n stuff

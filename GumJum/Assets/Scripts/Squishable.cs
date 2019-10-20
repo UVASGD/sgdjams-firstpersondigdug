@@ -23,7 +23,7 @@ public class Squishable : MonoBehaviour
         }
         else if (monster)
         {
-            monster.Die();
+            monster.Squish();
         }
     }
 }

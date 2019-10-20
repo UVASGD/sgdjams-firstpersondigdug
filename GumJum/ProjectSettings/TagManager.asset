@@ -11,6 +11,9 @@ TagManager:
   - Wall
   - Mineable
   - RockStop
+  - EndCamera
+  - Goggle
+  - Dragon
   layers:
   - Default
   - TransparentFX
@@ -25,9 +28,6 @@ TagManager:
   - Carver
   - 
   - Death
-  - 
-  - 
-  - 
   - 
   - 
   - 

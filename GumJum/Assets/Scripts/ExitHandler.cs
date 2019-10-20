@@ -67,7 +67,7 @@ public class ExitHandler : MonoBehaviour
 
 		if (Input.GetKey(KeyCode.Escape)) {
 			if (currentSeconds > secondsToExit) {
-				SceneLoader.MainMenu();
+                GameManager.Instance.MainMenu();
 			}
 			currentSeconds += Time.deltaTime;
 		} else {

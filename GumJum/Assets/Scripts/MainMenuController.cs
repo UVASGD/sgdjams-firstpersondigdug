@@ -42,7 +42,7 @@ public class MainMenuController : MonoBehaviour {
 
     void PerformAction() {
         if(selected == 0) {
-            SceneLoader.Level();
+            GameManager.Instance.StartGame();
         } else if(selected == 1) {
             SceneLoader.Credits();
         } else if(selected == 2) {

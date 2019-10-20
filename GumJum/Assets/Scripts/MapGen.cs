@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapGen : MonoBehaviour
 {
+    public static MapGen instance;
 
     [SerializeField]
     GameObject prefab;
@@ -18,20 +19,33 @@ public class MapGen : MonoBehaviour
     Vector3Int mapDimens;
 
     [SerializeField]
-    int seams;
+    float seamDensityLevel1 = 0.1f;
+    [SerializeField]
+    float seamDensityLevel10 = 0.25f;
 
     [SerializeField]
-    int bois;
+    int averageSeamSize = 3;//3 blocks
+    int numseams;
 
     [SerializeField]
-    int rocks;
-
+    float additionalBoiChanceLevel1 = 0f;
     [SerializeField]
-    GameObject rock_prefab;
+    float additionalBoiChanceLevel10 = 0.4f;
+
+    float additionalBoiSpawnChance;
+
+
+    int boiCount;
+    [SerializeField]
+    GameObject[] bois;
+    [HideInInspector]
+    public int boisSpawned;
+
+
 
     Vector3 offset;
 
-    MapNode[,,] map;
+    public MapNode[,,] map;
 
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
@@ -40,13 +54,45 @@ public class MapGen : MonoBehaviour
         Quaternion.Euler(0, 0, 90),
     };
 
+    private void Awake()
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
+        boisSpawned = 0;
+    }
+
     void Start()
     {
+        int currentlevel = GameManager.Instance.level;
+        float widthScaleFactor = Mathf.Max(1f, 0.7f * Mathf.Pow(currentlevel, 1f / 3f));
+        mapDimens.x = (int)(mapDimens.x * widthScaleFactor);
+        mapDimens.y = (int)(mapDimens.y * widthScaleFactor);
+        mapDimens.z = (int)(mapDimens.z * widthScaleFactor);
+        int volume = mapDimens.x * mapDimens.y * mapDimens.z;
+        float levelFraction = (float)(currentlevel - 1) / (10 - 1);
+        float seamDensity = Mathf.Lerp(seamDensityLevel1, seamDensityLevel10, levelFraction);
+        additionalBoiSpawnChance = Mathf.Lerp(additionalBoiChanceLevel1, additionalBoiChanceLevel10, levelFraction);
+        numseams = (int)(volume * seamDensity / averageSeamSize);
+
+        print("currentlevel: " + currentlevel);
+        print("widthScaleFactor: " + widthScaleFactor);
+        print("volume: " + volume);
+        print("levelFraction: " + levelFraction);
+        print("seamDensity: " + seamDensity);
+        print("additionalBoiSpawnChance: " + additionalBoiSpawnChance);
+        print("numseams: " + numseams);
+
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
         Allocate();
         CarveSeams();
-        PlaceRocks();
     }
 
     void Allocate()
@@ -63,11 +109,6 @@ public class MapGen : MonoBehaviour
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
 
                     map[x, y, z] = obj.GetComponent<MapNode>();
-
-                    if (x == 0 || z == 0 || y == 0 || x == mapDimens.x - 1 || z == mapDimens.z - 1)
-                    {
-                        map[x, y, z].Block.tag = "Untagged";
-                    }
                 }
             }
         }
@@ -78,24 +119,24 @@ public class MapGen : MonoBehaviour
         Vector3 position;
         int height;
         float radius;
-        bool spawn_boi = false;
+        bool spawnBoi;
 
-        for (int i = 0; i < seams; i++)
+        for (int i = 0; i < numseams; i++)
         {
             position = new Vector3(
                 Random.Range(0, mapDimens.x),
                 Random.Range(0, mapDimens.y),
                 Random.Range(0, mapDimens.z)
                 ) - offset;
-            height = Random.Range(2, 4);
+            height = Random.Range(averageSeamSize - 1, averageSeamSize + 1);
             radius = 0.5f;
-            spawn_boi = i < bois;
+            spawnBoi = true;
 
             CarveSeam(
                 position,
                 height,
                 radius,
-                spawn_boi,
+                spawnBoi,
                 orientations[Random.Range(0, orientations.Length)]
             );
         }
@@ -109,7 +150,7 @@ public class MapGen : MonoBehaviour
         );
     }
 
-    void CarveSeam(Vector3 center, float height, float radius, bool spawn_boi, Quaternion orientation)
+    void CarveSeam(Vector3 center, float height, float radius, bool spawnBoi, Quaternion orientation)
     {
         Carver carve = Instantiate(carver, transform);
         carve.transform.localPosition = center;
@@ -118,59 +159,28 @@ public class MapGen : MonoBehaviour
 
         carve.SetDimens(height * breadth, radius * breadth);
 
-        if (spawn_boi)
-            SpawnBoiAt(center);
-    }
-
-    void SpawnBoiAt(Vector3 center)
-    {
-        // TODO: Spawn Boi Here
-        Instantiate(prefab, transform);
-    }
-
-    void PlaceRocks()
-    {
-        for (int i = 0; i < rocks; i++)
+        if (spawnBoi)
         {
-            Vector3Int at;
-            MapNode inNode;
-            bool goodSpot = false;
-
-            int tries = 0;
-            while (!goodSpot)
+            SpawnBoiAt(center);
+            float dice = Random.value;
+            if (dice < additionalBoiSpawnChance)
             {
-                at = new Vector3Int(
-                Random.Range(1, mapDimens.x - 1),
-                Random.Range(1, mapDimens.y - 1),
-                Random.Range(1, mapDimens.z - 1)
-                );
-                inNode = map[at.x, at.y, at.z];
-
-                if (!inNode.Broken)
-                {
-                    goodSpot = true;
-                    //MapNode atNode = map[at.x, at.y, at.z];
-                    //atNode.Break();
-
-                    PlaceRock(at, inNode.Block);
-                }
-
-                if (tries > 50)
-                {
-                    Debug.Log("i screm");
-                    break;
-
-                }
-                tries++;
+                SpawnBoiAt(center);
             }
         }
     }
 
-
-    void PlaceRock(Vector3Int at, Block over)
+    void SpawnBoiAt(Vector3 center)
     {
-        Rock rock = Instantiate(rock_prefab, transform).GetComponent<Rock>();
-        rock.transform.localPosition = (at - offset) * breadth;
-        rock.SetSupportBlock(over);
+        print("Spawn boi!!!");
+        int index = bois.Length - 1;
+        if (boisSpawned < Mathf.CeilToInt(boiCount * 2 / 3))
+        {
+            index = Random.Range(0, bois.Length - 1);
+        }
+
+        boisSpawned++;
+        GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
+        print(boi.name + ", " + boi.transform.position);
     }
 }

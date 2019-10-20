@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 6360298426209747955}
   m_Layer: 0
   m_Name: MushroomEnemy
-  m_TagString: Untagged
+  m_TagString: Goggle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 1729318715682395240}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Goggle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 1276648426703399745}
   m_Layer: 0
   m_Name: Armature
-  m_TagString: Untagged
+  m_TagString: Goggle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

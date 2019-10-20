@@ -8,7 +8,7 @@ public class ObjectAnim : MonoBehaviour
     protected Animator anim;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected void Awake()
     {
         //print("HOLA");
         anim = GetComponent<Animator>();

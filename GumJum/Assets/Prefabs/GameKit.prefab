@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6882256891562049794}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &24825511
 BoxCollider:
@@ -86,13 +86,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140151033}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.250211, y: 0, z: 0, w: 0.9681913}
+  m_LocalPosition: {x: 0, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6882256891562049794}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 28.98, y: 0, z: 0}
 --- !u!108 &140151035
 Light:
   m_ObjectHideFlags: 0
@@ -104,9 +104,9 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4
-  m_Range: 10
-  m_SpotAngle: 101
+  m_Intensity: 5
+  m_Range: 50
+  m_SpotAngle: 105
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1540351373}
   - component: {fileID: 1540351375}
-  - component: {fileID: 1540351374}
+  - component: {fileID: 7483055933139867394}
   m_Layer: 11
   m_Name: Camera
   m_TagString: Untagged
@@ -183,7 +183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6882256891562049794}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1540351375
 Camera:
@@ -228,14 +228,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1540351374
-AudioListener:
+--- !u!114 &7483055933139867394
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540351372}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27804607e40de2f4d845369019b29f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2000234320
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +884,7 @@ GameObject:
   - component: {fileID: 8743440635628629143}
   - component: {fileID: 968011869}
   - component: {fileID: 1763151568}
+  - component: {fileID: 1948768785591330075}
   m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
@@ -899,9 +904,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 709371370694733226}
-  - {fileID: 140151034}
   - {fileID: 1540351373}
   - {fileID: 24825509}
+  - {fileID: 140151034}
   m_Father: {fileID: 4841698086294365202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1096,6 +1101,18 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: DitzelGames.PostProcessingTextureOverlay.TextureOverlay,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &1948768785591330075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727706360127654804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27804607e40de2f4d845369019b29f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4841698085119615823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1729,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6882256891562049794}
     m_Modifications:
+    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Name
+      value: GrappleGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5397875596387932989, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1767,12 +1794,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
-        type: 3}
-      propertyPath: m_Name
-      value: GrappleGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+    - target: {fileID: 5397875595185505380, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
       propertyPath: m_Layer
       value: 8
@@ -1817,16 +1839,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 7621424245921844898, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5397875595185505380, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5397875596154843690, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
       propertyPath: crank_fx
@@ -1851,6 +1863,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5517689460242655716, guid: 958e822357c23c7458a74040d39ea54a,
         type: 3}
+    - target: {fileID: 7621424245921844898, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9799a2c8778174ba26545cd4b5bb8c, type: 3}
 --- !u!4 &709371370694733226 stripped
@@ -1872,6 +1889,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4841698085119615811}
     m_Modifications:
+    - target: {fileID: 3063302113612226216, guid: 538570ceea9c18a4a9365bf66830cc7b,
+        type: 3}
+      propertyPath: m_Name
+      value: Jetpack Fuel Bar
+      objectReference: {fileID: 0}
     - target: {fileID: 3063302113612226223, guid: 538570ceea9c18a4a9365bf66830cc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1976,11 +1998,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063302113612226216, guid: 538570ceea9c18a4a9365bf66830cc7b,
-        type: 3}
-      propertyPath: m_Name
-      value: Jetpack Fuel Bar
       objectReference: {fileID: 0}
     - target: {fileID: 3063302112394733834, guid: 538570ceea9c18a4a9365bf66830cc7b,
         type: 3}

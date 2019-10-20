@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5019415909945303058}
   - component: {fileID: 1606173956915008619}
   - component: {fileID: 8450352689369373760}
+  - component: {fileID: 279864045}
   m_Layer: 0
   m_Name: ZBrush_defualt_group
   m_TagString: Untagged
@@ -78,6 +79,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &279864045
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191291850001375060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.26666668, z: 0.1}
+  m_Center: {x: 0, y: 0.13333334, z: 0}
 --- !u!1 &4168825331357372711
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,8 +101,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1117452727327269684}
-  - component: {fileID: 3109690126893395862}
   - component: {fileID: 1751265054689623962}
+  - component: {fileID: 2078447816}
+  - component: {fileID: 2078447817}
   m_Layer: 0
   m_Name: skull-pineapple
   m_TagString: Untagged
@@ -111,19 +126,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3109690126893395862
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4168825331357372711}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.8, z: 0.3}
-  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &1751265054689623962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +138,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae1d7a38e590124c8d975455a2cea5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2078447816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168825331357372711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1467617ba310e7246879675dc8277b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  reverse: 0
+--- !u!95 &2078447817
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168825331357372711}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f754456bfe9142242bf809594cba6c85, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

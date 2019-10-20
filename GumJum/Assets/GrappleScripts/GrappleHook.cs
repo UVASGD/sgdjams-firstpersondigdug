@@ -86,8 +86,9 @@ public class GrappleHook : MonoBehaviour
                     anim.SetTrigger("Mine");
                     check.transform.gameObject.GetComponent<Block>().Break();
                 }
+                if (check.transform.GetComponentInParent<Stickable>() && !check.transform.GetComponentInParent<Stickable>().is_monster)
+                    return;
             }
-            else
             {
                 anim.SetTrigger("Shoot");
                 hook_collider.enabled = true;
@@ -207,7 +208,7 @@ public class GrappleHook : MonoBehaviour
             Vector3 dir = (transform.position - player_body.position);
             if (Physics.Raycast(player_body.position, dir.normalized,
                 out RaycastHit hit, dir.magnitude, layer_mask))
-            if (Vector3.Distance(hit.point, transform.position) > block_distance)
+            if (Vector3.Distance(hit.point, transform.position) > block_distance && (hit.transform.GetComponent<Stickable>() && !hit.transform.GetComponentInParent<Stickable>().is_monster))
             {
                 Break();
             }

@@ -30,7 +30,7 @@ public class ObjectAnim : MonoBehaviour
 
     IEnumerator End(bool level)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         if (gameObject.transform.childCount > 0)
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
         if (level)

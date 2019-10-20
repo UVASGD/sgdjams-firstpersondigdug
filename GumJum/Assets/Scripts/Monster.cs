@@ -87,6 +87,8 @@ public class Monster : MonoBehaviour {
 		stunned = false;
 
 		mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
+
+        GameManager.Instance.monst++;
 	}
 
 	private void Update () {
@@ -181,7 +183,7 @@ public class Monster : MonoBehaviour {
 	}
 
 	public void Die () {
-        //GameManager.Instance.AddPoints(points);
+        GameManager.Instance.KillMonster(points);
 		Destroy(gameObject);
 	}
 

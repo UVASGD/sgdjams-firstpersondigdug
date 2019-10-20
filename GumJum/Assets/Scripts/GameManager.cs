@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int level;
     [HideInInspector]
     public int dicks;
+    [HideInInspector]
+    public int monst;
 
     public static GameManager Instance;
 
@@ -31,14 +33,9 @@ public class GameManager : MonoBehaviour
         lives = 3;
         score = 0;
         level = 1;
+        monst = 0;
 
         death_anim = GetComponentInChildren<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     
     public void Die(DeathType deathType)
@@ -46,16 +43,19 @@ public class GameManager : MonoBehaviour
         death_anim.SetTrigger(deathType.ToString());
     }
 
-    public void AddPoints(int points)
+    public void KillMonster(int points)
     {
         int score = PlayerPrefs.GetInt("HighScore", 0);
         PlayerPrefs.SetInt("HighScore", points);
-
         //update UI
+        monst--;
+        if (monst <= 0)
+            SceneLoader.Level();
     }
 
     public static void GetPineapple()
     {
         Debug.Log("GOT PINEAPPLE AAAAAAAAAAAAAAAAAAA");
+        SceneLoader.Level();
     }
 }

@@ -12,6 +12,7 @@ public class SceneLoader : MonoBehaviour
 
     public static void Level()
     {
+        GameManager.Instance.monst = 0;
         SceneManager.LoadScene("Level");
     }
 

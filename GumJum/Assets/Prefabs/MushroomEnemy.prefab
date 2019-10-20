@@ -269,8 +269,10 @@ MonoBehaviour:
   stunned: 0
   timeSinceLastInflated: 0
   maxTimeSinceLastInflated: 2
-  bloodSplatter: {fileID: 6423589142772609806, guid: f1a6ff5b8afca604185fdbc5d6c1937e,
+  bloodSplatter: {fileID: 6734689509803105017, guid: b8e31f78ca368b34fade5658bc936058,
     type: 3}
+  deflate: {fileID: 8241945856963078565, guid: 0e9a18efb7e0f8e40a49a7c388c0bbcd, type: 3}
+  pop: {fileID: 2854376580991045561, guid: 96fb623382cc7544682be77f53b2c5c6, type: 3}
 --- !u!54 &5332776095699346459
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 8f314450fa896724d8a89196d96f47d8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8.15
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8f314450fa896724d8a89196d96f47d8,
         type: 3}
@@ -428,6 +428,10 @@ MonoBehaviour:
   targetInflationLevel: 0
   inflating: 0
   stunned: 0
+  timeSinceLastInflated: 0
+  maxTimeSinceLastInflated: 2
+  bloodSplatter: {fileID: 6423589142772609806, guid: f1a6ff5b8afca604185fdbc5d6c1937e,
+    type: 3}
 --- !u!1 &679364811
 GameObject:
   m_ObjectHideFlags: 0

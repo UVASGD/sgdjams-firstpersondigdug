@@ -9,6 +9,8 @@ public enum MonsterState {
 }
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Stickable))]
+[RequireComponent(typeof(Squishable))]
 public class Monster : MonoBehaviour {
 	public GameObject player;
 	public bool seesPlayer;
@@ -92,7 +94,7 @@ public class Monster : MonoBehaviour {
 		//distanceSinceLastChangedDirection += speed * Time.deltaTime;
 	}
 
-	private void Inflate (float percentage = 0.25f) {
+	public void Inflate (float percentage = 0.25f) {
 		if (targetInflationLevel >= 1f) return;
 		targetInflationLevel += percentage;
 		if (!inflating) {
@@ -134,7 +136,12 @@ public class Monster : MonoBehaviour {
 		inflating = false;
 	}
 
-	private void Die () {
+    public void Squish()
+    {
+        Die();
+    }
+
+	public void Die () {
 		Destroy(gameObject);
 	}
 

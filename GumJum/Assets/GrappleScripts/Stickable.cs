@@ -11,35 +11,28 @@ public class Stickable : MonoBehaviour
     [HideInInspector]
     public bool is_monster;
 
+    Monster monster;
+
     // Start is called before the first frame update
     void Awake()
-    { 
-      //  if (GetComponent<Monster>())
-      //      is_monster = true;
+    {
+        if (GetComponent<Monster>())
+        {
+            is_monster = true;
+            monster = GetComponent<Monster>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Release()
     {
-        /*
-            if (monster) {
-                monster.Release();    
-            }
-        */
     }
 
     public void Pump()
     {
-        /*
-            if (monster) {
-                monster.Pump();
-            }
-        */
+        if (monster) {
+            monster.Inflate();
+        }
     }
 
     private void OnDestroy()

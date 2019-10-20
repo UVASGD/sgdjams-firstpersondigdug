@@ -38,12 +38,22 @@ public class DeathZone : MonoBehaviour
 
     public void NextLevel()
     {
-        GameManager.Instance.NextLevel();
+		monster_kill.gameObject.SetActive(false);
+		pineapple.gameObject.SetActive(false);
+		crush.gameObject.SetActive(false);
+		goggle.gameObject.SetActive(false);
+		fall.gameObject.SetActive(false);
+		GameManager.Instance.NextLevel();
     }
 
     public void MainMenu()
     {
-        GameManager.Instance.MainMenu();
+		monster_kill.gameObject.SetActive(false);
+		pineapple.gameObject.SetActive(false);
+		crush.gameObject.SetActive(false);
+		goggle.gameObject.SetActive(false);
+		fall.gameObject.SetActive(false);
+		GameManager.Instance.MainMenu();
     }
 
     public void EndLevel(string type)

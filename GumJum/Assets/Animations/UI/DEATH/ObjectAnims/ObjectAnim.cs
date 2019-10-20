@@ -18,7 +18,15 @@ public class ObjectAnim : MonoBehaviour
     public void Play(bool level)
     {
         gameObject.SetActive(true);
+		Transform[] children = transform.GetComponentsInChildren<Transform>(true);
+		foreach (var child in children) {
+			child.gameObject.SetActive(true);
+		}
+		foreach (Transform child in transform) {
+			gameObject.SetActive(true);
+		}
         anim.SetTrigger("Start");
+		Sound();
         StartCoroutine(End(level));
     }
 

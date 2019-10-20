@@ -13,6 +13,9 @@ public enum MonsterState {
 [RequireComponent(typeof(Stickable))]
 [RequireComponent(typeof(Squishable))]
 public class Monster : MonoBehaviour {
+
+    public int points = 50;
+
 	public GameObject player;
 	public bool seesPlayer;
 	public bool canBeginPhasing;
@@ -178,6 +181,7 @@ public class Monster : MonoBehaviour {
 	}
 
 	public void Die () {
+        //GameManager.Instance.AddPoints(points);
 		Destroy(gameObject);
 	}
 

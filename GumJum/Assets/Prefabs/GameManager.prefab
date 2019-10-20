@@ -235,6 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2126301184431701374}
   - component: {fileID: 6542330986017579218}
+  - component: {fileID: 2113009880}
   m_Layer: 12
   m_Name: Camera
   m_TagString: Untagged
@@ -300,6 +301,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &2113009880
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549541018886784587}
+  m_Enabled: 1
 --- !u!1 &943604934189183724
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +405,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8c55ba1b64a3345a09a1cf95e6a418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monster_kill: {fileID: 0}
+  pineapple: {fileID: 0}
+  crush: {fileID: 0}
+  goggle: {fileID: 0}
+  fall: {fileID: 0}
 --- !u!1 &1199317971584660492
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,10 +797,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1719364369048126483}
-  - component: {fileID: 8743293413363247465}
-  - component: {fileID: 5955689476528959243}
-  - component: {fileID: 8125655975712440519}
-  - component: {fileID: 7098133898599671599}
+  - component: {fileID: 1656216719}
   m_Layer: 12
   m_Name: MushroomEnemy
   m_TagString: Goggle
@@ -801,35 +812,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2415953671356757504}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00017270097}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.97363484, z: -0, w: 0.22811224}
+  m_LocalPosition: {x: 0, y: 0.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3130672919138783133}
   - {fileID: 2304705413857673904}
   m_Father: {fileID: 433268454223668634}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.98001, z: 0}
---- !u!95 &8743293413363247465
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2415953671356757504}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 79f92ee966284468599e4e03cfb8077d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1d7316b303e364b5e92136f5846e18e9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5955689476528959243
+  m_LocalEulerAnglesHint: {x: 0, y: 153.628, z: 0}
+--- !u!114 &1656216719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,52 +830,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2415953671356757504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d1e83d3c10441b8930d1f3dd0b5cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points: 50
-  player: {fileID: 0}
-  seesPlayer: 0
-  canBeginPhasing: 0
-  insideWall: 0
-  state: 0
-  speed: 1
-  targetPosition: {x: 0, y: 0, z: 0}
-  targetVelocity: {x: 0, y: 0, z: 0}
-  inflationLevel: 0
-  targetInflationLevel: 0
-  inflating: 0
-  stunned: 0
-  timeSinceLastInflated: 0
-  maxTimeSinceLastInflated: 2
-  bloodSplatter: {fileID: 6423589142772609806, guid: f1a6ff5b8afca604185fdbc5d6c1937e,
-    type: 3}
---- !u!54 &8125655975712440519
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2415953671356757504}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &7098133898599671599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2415953671356757504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc103ebf7becb44954ef74c64f3a6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f7da0602f88b4e02adbf09a95f629dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2544415277480415676
@@ -1188,7 +1135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &139524015312913828
 Transform:
   m_ObjectHideFlags: 0
@@ -1329,7 +1276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7987248073161235140
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1949,7 +1896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7477135154653196060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 2.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1719364369048126483}
@@ -1968,7 +1915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276c3e70547fc2f419cc82f2239ad956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 5512581931494456342, guid: b28d2e4950cde3a41b0c3f9764b037ff, type: 3}
 --- !u!95 &7177618677333952768
 Animator:
   serializedVersion: 3
@@ -1978,11 +1925,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7477135154653196060}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 79f92ee966284468599e4e03cfb8077d, type: 3}
   m_Controller: {fileID: 9100000, guid: ccee3fe80f10317438d9229fc7bf1f34, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2099,7 +2046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5071548363154976096
 Transform:
   m_ObjectHideFlags: 0

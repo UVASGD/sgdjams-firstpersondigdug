@@ -51,6 +51,8 @@ public class DecalController : MonoBehaviour {
 
 			decal.SetActive(true);
 
+            decal.transform.parent = hit.transform;
+
 			instance.decalsActiveInWorld.Enqueue(decal);
 		}
 	}

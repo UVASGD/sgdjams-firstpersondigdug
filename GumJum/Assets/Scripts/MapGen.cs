@@ -32,6 +32,9 @@ public class MapGen : MonoBehaviour
     [SerializeField]
     GameObject pineapple;
 
+    [SerializeField]
+    GameObject bounder;
+
     int rocks;
 
     Vector3 offset;
@@ -66,6 +69,8 @@ public class MapGen : MonoBehaviour
 
         mapDimens += new Vector3Int(1, 1, 1) * (currentlevel * 2);
 
+        transform.position -= new Vector3(0f, mapDimens.y / 2f, 0f) * breadth;
+
         numseams = 3 + currentlevel;
 
         rocks = 5 + (currentlevel * 2);
@@ -76,8 +81,19 @@ public class MapGen : MonoBehaviour
 
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
+        Debug.Log("offset: " + offset.ToString());
+
         Allocate();
         CarveSeams();
+
+        if (bounder)
+        {
+            GameObject bound1 = Instantiate(bounder, transform);
+
+            bound1.transform.localScale = new Vector3(mapDimens.x, mapDimens.y * 2f, mapDimens.z) * breadth;
+            bound1.transform.localPosition = new Vector3(0f, mapDimens.y, 0f) * breadth;
+            bound1.transform.localPosition -= new Vector3(breadth / 2f, 0f, breadth / 2f);
+        }
     }
 
     void Allocate()
@@ -138,7 +154,7 @@ public class MapGen : MonoBehaviour
         CarveSeam(
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
-            radius = 0.25f,
+            radius = 0.5f,
             Spawn.None,
             orientations[0]
         );
@@ -174,12 +190,12 @@ public class MapGen : MonoBehaviour
         int index = Random.Range(0, bois.Length - 1);
 
         boisSpawned++;
-        GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
+        GameObject boi = Instantiate(bois[index], transform.position + center, Quaternion.identity);
     }
 
     void SpawnPineappleAt(Vector3 center)
     {
         if (pineapple)
-            Instantiate(pineapple, center, Quaternion.identity);
+            Instantiate(pineapple, transform.position + center, Quaternion.identity);
     }
 }

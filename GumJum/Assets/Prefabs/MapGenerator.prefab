@@ -47,8 +47,6 @@ MonoBehaviour:
   carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
   breadth: 2
   mapDimens: {x: 16, y: 16, z: 16}
-  seamDensityLevel1: 0.1
-  seamDensityLevel10: 0.25
   averageSeamSize: 3
   bois:
   - {fileID: 1964347360976917212, guid: 8d529b403ca8d794fb9b91657497ffcc, type: 3}
@@ -56,3 +54,4 @@ MonoBehaviour:
   boisSpawned: 0
   pineapple: {fileID: 4168825331357372711, guid: 2023ed295c09d5040850f4ccb07c5e16,
     type: 3}
+  bounder: {fileID: 7718709109495883038, guid: aaba726d7424f0f44ac0e121770e4f55, type: 3}

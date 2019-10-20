@@ -81,13 +81,13 @@ public class MapGen : MonoBehaviour
         additionalBoiSpawnChance = Mathf.Lerp(additionalBoiChanceLevel1, additionalBoiChanceLevel10, levelFraction);
         numseams = (int)(volume * seamDensity / averageSeamSize);
 
-        print("currentlevel: " + currentlevel);
-        print("widthScaleFactor: " + widthScaleFactor);
-        print("volume: " + volume);
-        print("levelFraction: " + levelFraction);
-        print("seamDensity: " + seamDensity);
-        print("additionalBoiSpawnChance: " + additionalBoiSpawnChance);
-        print("numseams: " + numseams);
+        //print("currentlevel: " + currentlevel);
+        //print("widthScaleFactor: " + widthScaleFactor);
+        //print("volume: " + volume);
+        //print("levelFraction: " + levelFraction);
+        //print("seamDensity: " + seamDensity);
+        //print("additionalBoiSpawnChance: " + additionalBoiSpawnChance);
+        //print("numseams: " + numseams);
 
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
@@ -172,7 +172,7 @@ public class MapGen : MonoBehaviour
 
     void SpawnBoiAt(Vector3 center)
     {
-        print("Spawn boi!!!");
+        //print("Spawn boi!!!");
         int index = bois.Length - 1;
         if (boisSpawned < Mathf.CeilToInt(boiCount * 2 / 3))
         {
@@ -181,6 +181,6 @@ public class MapGen : MonoBehaviour
 
         boisSpawned++;
         GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
-        print(boi.name + ", " + boi.transform.position);
+        //print(boi.name + ", " + boi.transform.position);
     }
 }

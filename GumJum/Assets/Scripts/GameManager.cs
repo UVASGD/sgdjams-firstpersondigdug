@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    Animator death_anim;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
         lives = 3;
         score = 0;
         level = 1;
+
+        death_anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -36,15 +40,18 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-    public void StartLevel()
-    {
-
-    }
     
     public void Die(DeathType deathType)
     {
+        death_anim.SetTrigger(deathType.ToString());
+    }
 
+    public void AddPoints(int points)
+    {
+        int score = PlayerPrefs.GetInt("HighScore");
+        PlayerPrefs.SetInt("HighScore", points);
+
+        //update UI
     }
 
     public static void GetPineapple()

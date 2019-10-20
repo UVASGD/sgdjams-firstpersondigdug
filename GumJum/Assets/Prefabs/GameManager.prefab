@@ -909,7 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276c3e70547fc2f419cc82f2239ad956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 8802229337924428211, guid: 783f1cf3a5775dd4bb60a5d833b2d754, type: 3}
 --- !u!95 &8267883657911096015
 Animator:
   serializedVersion: 3
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276c3e70547fc2f419cc82f2239ad956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 7143218883395208955, guid: 2fab11b1bc19e7642b5762fc735350c5, type: 3}
 --- !u!95 &6546823941908350660
 Animator:
   serializedVersion: 3

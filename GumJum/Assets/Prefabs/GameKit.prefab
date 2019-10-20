@@ -1631,6 +1631,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3218826351853539639, guid: 59396bf0c981e714a914d7ae660b069e,
         type: 3}
+    - target: {fileID: 5397875596154843690, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: pump_fx
+      value: 
+      objectReference: {fileID: 5517689460242655716, guid: 958e822357c23c7458a74040d39ea54a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9799a2c8778174ba26545cd4b5bb8c, type: 3}
 --- !u!4 &709371370694733226 stripped

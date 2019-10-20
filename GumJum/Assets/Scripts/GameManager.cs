@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Player player { get { return FindObjectOfType<Player>(); } }
 
+    GameplayUI gpUI;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,21 +47,49 @@ public class GameManager : MonoBehaviour
         end_anim.SetTrigger(deathType.ToString());
     }
 
+    public void NextLevel()
+    {
+        level++;
+        if (gpUI)
+            gpUI.UpdateLevel(level);
+    }
+
     public void KillMonster(int points)
     {
-        int score = PlayerPrefs.GetInt("HighScore", 0);
-        PlayerPrefs.SetInt("HighScore", score+points);
+        score += points;
+        if (gpUI)
+            gpUI.UpdateScore(score);
+
         //update UI
         monst--;
         if (monst <= 0)
             end_anim.SetTrigger("MonsterKill");
     }
 
+    public void SaveScore()
+    {
+        int highscore = PlayerPrefs.GetInt("HighScore", 0);
+
+        if (score > highscore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
+    }
+
     public void GetPineapple()
     {
         Debug.Log("GOT PINEAPPLE AAAAAAAAAAAAAAAAAAA");
-        int score = PlayerPrefs.GetInt("HighScore", 0);
-        PlayerPrefs.SetInt("HighScore", 500+score);
+        score += 500;
+
+        if (gpUI)
+            gpUI.UpdateScore(score);
+
         end_anim.SetTrigger("Pineapple");
+    }
+
+    public void RegisterGPUI(GameplayUI _gpUI)
+    {
+        gpUI = _gpUI;
     }
 }

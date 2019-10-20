@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5516092413776470312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5516092413776470310}
+  - component: {fileID: 5516092413776470311}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5516092413776470310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516092413776470312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5516092413776470311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516092413776470312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb60472e959f2745a18f9a6cae0488c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 344264230279622552, guid: f76e9f95a886d7e48be22115fd63b59d, type: 3}
+  carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
+  breadth: 2
+  mapDimens: {x: 16, y: 16, z: 16}
+  averageSeamSize: 3
+  bois:
+  - {fileID: 1964347360976917212, guid: 8d529b403ca8d794fb9b91657497ffcc, type: 3}
+  - {fileID: 9132406691839647351, guid: ac016e40867a8184483c65a0090f2f50, type: 3}
+  boisSpawned: 0
+  pineapple: {fileID: 4168825331357372711, guid: 2023ed295c09d5040850f4ccb07c5e16,
+    type: 3}
+  bounder: {fileID: 7718709109495883038, guid: aaba726d7424f0f44ac0e121770e4f55, type: 3}

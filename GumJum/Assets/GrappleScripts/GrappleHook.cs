@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour
 {
-    public float mineRange;
     GrappleGun grapple_gun;
     LineRenderer lr;
     Rigidbody player_body, rb;
@@ -12,16 +11,22 @@ public class GrappleHook : MonoBehaviour
     bool can_fire, fired, broken, dropped;
     float pull_force = 200f, max_distance = 20f, current_distance, speed = 20f, 
         return_force = 20f, last_crank = -1, crank_cooldown = 0.5f, 
-        block_distance = 2f, break_distance = 20f, pick_up_distance = 2f;
+        block_distance = 2f, break_distance = 20f, pick_up_distance = 2f, mine_range = 3f;
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
-    
+    Transform player_cam;
     public Animator anim;
+
+
+    [Header("FX OBJECTS")]
+    public GameObject crank_fx, return_fx, fire_fx, pump_fx;
+
 
     // Start is called before the first frame update
     void Awake()
     {
+        player_cam = Camera.main.transform;
         anim = GetComponentInParent<Animator>();
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
@@ -53,7 +58,6 @@ public class GrappleHook : MonoBehaviour
         // if stuck in wall, then pull player
         if (stuck_target && !stuck_target.is_monster)
         {
-            print("PULLING");
             Vector3 dir = (transform.position - player_body.transform.position).normalized;
             player_body.AddForce(dir * pull_force * Time.deltaTime, ForceMode.Impulse);
         }
@@ -80,14 +84,18 @@ public class GrappleHook : MonoBehaviour
         {
             lr.enabled = true;
             RaycastHit check;
-            if (Physics.Raycast(transform.position, transform.right * -1f, out check, mineRange) &&
-                check.transform.gameObject.CompareTag("Mineable"))  // If block is in range
+            if (Physics.Raycast(player_cam.position, player_cam.forward, out check, mine_range))  // If block is in range
             {
-                anim.SetTrigger("Mine");
-                check.transform.gameObject.GetComponent<Block>().Break();
+                if (check.transform.gameObject.CompareTag("Mineable"))
+                {
+                    anim.SetTrigger("Mine");
+                    check.transform.gameObject.GetComponent<Block>().Break();
+                }
+                if (check.transform.GetComponentInParent<Stickable>() && !check.transform.GetComponentInParent<Stickable>().is_monster)
+                    return;
             }
-            else
             {
+                if (fire_fx) Instantiate(fire_fx, transform);
                 anim.SetTrigger("Shoot");
                 hook_collider.enabled = true;
                 transform.parent = null;
@@ -103,7 +111,7 @@ public class GrappleHook : MonoBehaviour
     public void Stick(Collider collider) 
     {
         // if object !has Stickable return
-        stuck_target = collider.GetComponent<Stickable>();
+        stuck_target = collider.GetComponentInParent<Stickable>();
         if (!stuck_target)
         {
             Drop();
@@ -112,7 +120,7 @@ public class GrappleHook : MonoBehaviour
         // set that joint, boy
         rb.velocity = Vector3.zero;
         joint = gameObject.AddComponent<FixedJoint>();
-        joint.connectedBody = collider.GetComponent<Rigidbody>();
+        joint.connectedBody = collider.GetComponentInParent<Rigidbody>();
         // if monster, then stick em
         stuck_target.OnBreak += Drop;
         // change bools n stuff
@@ -160,6 +168,8 @@ public class GrappleHook : MonoBehaviour
         if (dropped)
             if (last_crank < 0 || (Time.time - last_crank > crank_cooldown))
             {
+                if (return_fx) Instantiate(return_fx, transform);
+                if (crank_fx) Instantiate(crank_fx, transform);
                 anim.SetBool("Reel", true);
                 Vector3 dir = (grapple_gun.start_point.position - transform.position).normalized;
                 rb.AddForce(dir * return_force, ForceMode.Impulse);
@@ -206,7 +216,7 @@ public class GrappleHook : MonoBehaviour
             Vector3 dir = (transform.position - player_body.position);
             if (Physics.Raycast(player_body.position, dir.normalized,
                 out RaycastHit hit, dir.magnitude, layer_mask))
-            if (Vector3.Distance(hit.point, transform.position) > block_distance)
+            if (Vector3.Distance(hit.point, transform.position) > block_distance && (hit.transform.GetComponent<Stickable>() && !hit.transform.GetComponentInParent<Stickable>().is_monster))
             {
                 Break();
             }

@@ -4,8 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - WPPathfinder
+  - Waypoint
+  - Obst
+  - Enemy
+  - Wall
   - Mineable
   - RockStop
+  - EndCamera
+  - Goggle
+  - Dragon
   layers:
   - Default
   - TransparentFX
@@ -16,10 +24,10 @@ TagManager:
   - 
   - 
   - Player
+  - Wall
+  - Carver
+  - 
   - Death
-  - 
-  - 
-  - 
   - 
   - 
   - 

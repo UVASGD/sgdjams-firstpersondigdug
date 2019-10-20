@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3633409651422197113}
   - component: {fileID: 8979571460410936705}
   - component: {fileID: 5099672659920239058}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Mineable
   m_Icon: {fileID: 0}
@@ -147,9 +147,9 @@ GameObject:
   m_Component:
   - component: {fileID: 344264230279622554}
   - component: {fileID: 344264230279622555}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TextureMapNode
-  m_TagString: Untagged
+  m_TagString: Mineable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 6380343288468925422}
   - component: {fileID: 8089318321370918138}
   - component: {fileID: 1791663290171867973}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: RockStop
   m_Icon: {fileID: 0}

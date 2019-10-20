@@ -120,6 +120,7 @@ public class RigidbodyFirstPersonController : MonoBehaviour
 
     private void Awake()
     {
+        cam = Camera.main;
         player = GetComponent<Player>();
     }
 

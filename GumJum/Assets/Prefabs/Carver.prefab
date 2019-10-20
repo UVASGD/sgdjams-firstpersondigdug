@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2678203512413332953}
   - component: {fileID: 8657061216704351079}
   - component: {fileID: -4055616293270677320}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Carver
   m_TagString: Untagged
   m_Icon: {fileID: 0}

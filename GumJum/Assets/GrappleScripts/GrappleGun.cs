@@ -38,7 +38,6 @@ public class GrappleGun : MonoBehaviour
             }
             if (Input.GetButtonDown("Fire2"))
             {
-                print(grapple_hook);
                 grapple_hook.Crank();
             }
         }

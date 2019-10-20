@@ -20,6 +20,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Awake()
         {
+            Camera = Camera.main;
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
             rigidbodyFirstPersonController = GetComponentInParent<RigidbodyFirstPersonController>();

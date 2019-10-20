@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        StartGame();
-
         end_anim = GetComponentInChildren<Animator>();
         end_camera = transform.FindDeepChild("Camera").GetComponent<Camera>();
         deathZone = GetComponentInChildren<DeathZone>();

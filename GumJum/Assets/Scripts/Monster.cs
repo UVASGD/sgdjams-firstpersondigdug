@@ -5,13 +5,17 @@ using UnityEngine;
 public enum MonsterState {
 	patrolling,
 	phasing,
-	chasing
+	chasing,
+	stunned,
 }
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Stickable))]
 [RequireComponent(typeof(Squishable))]
 public class Monster : MonoBehaviour {
+
+    public int points = 50;
+
 	public GameObject player;
 	public bool seesPlayer;
 	public bool canBeginPhasing;
@@ -50,8 +54,13 @@ public class Monster : MonoBehaviour {
 	public float targetInflationLevel;
 	public bool inflating;
 	public bool stunned;
+	public float timeSinceLastInflated;
+	public float maxTimeSinceLastInflated = 2f;
+
 
 	private Material mat;
+
+	public GameObject bloodSplatter;
 	
 
 	private void Start () {
@@ -78,28 +87,33 @@ public class Monster : MonoBehaviour {
 		stunned = false;
 
 		mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
+
+        GameManager.Instance.monst++;
 	}
 
 	private void Update () {
 		if (!player) return;
 
 		if (Input.GetKeyDown(KeyCode.K)) {
-			//Inflate();
-			Squish();
+			Inflate();
+			//Squish();
+		} else if (Input.GetKeyDown(KeyCode.J)) {
+			Deflate();
 		}
 
 		//UpdateStates();
 		//StateController();
+		//if (stunned) return;
 		//transform.position += transform.forward * speed * Time.deltaTime;
 		//distanceSinceLastChangedDirection += speed * Time.deltaTime;
 	}
 
 	public void Inflate (float percentage = 0.25f) {
 		if (targetInflationLevel >= 1f) return;
+		timeSinceLastInflated = 0f;
 		targetInflationLevel += percentage;
 		if (!inflating) {
-			inflating = true;
-			
+			inflating = true;	
 			StartCoroutine(InflateCR());
 		}
 	}
@@ -113,7 +127,7 @@ public class Monster : MonoBehaviour {
 			if (inflationLevel < 0.85f) {
 				
 			} else {
-				if (inflationLevel < 0.85f + Time.deltaTime) {
+				if (inflationLevel < 0.85f + 0.5f * Time.deltaTime) {
 					Material newMat = new Material(Shader.Find("Shader Graphs/MonsterDissolve"));
 					newMat.SetTexture("_Albedo", mat.GetTexture("_Albedo"));
 					newMat.SetColor("_AlbedoColor", mat.GetColor("_AlbedoColor"));
@@ -124,6 +138,9 @@ public class Monster : MonoBehaviour {
 					//mat = newMat;
 					transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material = newMat;
 					mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
+					GameObject splatInstance = Instantiate(bloodSplatter, transform.position + transform.up * 1.0f, Quaternion.identity);
+					Destroy(splatInstance, 5f);
+					GenerateDeathRaycasts(100);
 				}
 			}
 			yield return new WaitForEndOfFrame();
@@ -172,7 +189,34 @@ public class Monster : MonoBehaviour {
 	}
 
 	public void Die (float delay = 0f) {
+		GameManager.Instance.KillMonster(points);
 		Destroy(gameObject, delay);
+	}
+
+	public void Deflate (float percentage = 0.25f) {
+		//print("DEFLATE");
+		if (targetInflationLevel <= 0f) return;
+		if (inflating) return;
+		targetInflationLevel -= percentage;
+		if (!inflating) {
+			StartCoroutine(DeflateCR());
+		}
+	}
+
+	IEnumerator DeflateCR () {
+		//print("Target:")
+		while (inflationLevel > targetInflationLevel) {
+			if (inflating) break;
+			//print("ASDasdfadf");
+			inflationLevel -= 0.5f * Time.deltaTime;
+			mat.SetFloat("_ExplosionAmount",	 inflationLevel);
+			yield return new WaitForEndOfFrame();
+		}
+		if (inflationLevel <= 0f) {
+			inflationLevel = 0f;
+			mat.SetFloat("_ExplosionAmount", inflationLevel);
+			stunned = false;
+		}
 	}
 
 	private void ChangeDirections (Vector3 direction) {
@@ -301,6 +345,7 @@ public class Monster : MonoBehaviour {
 				ChangeDirections(targetDirection);
 				break;
 			default:
+				targetDirection = Vector3.zero;
 				break;
 		}
 	}
@@ -336,10 +381,19 @@ public class Monster : MonoBehaviour {
 			timePhasing += Time.deltaTime;
 		}
 
+		//Inflation
+		stunned = inflationLevel > 0f;
+		if (timeSinceLastInflated >= maxTimeSinceLastInflated && inflationLevel > 0f) {
+			timeSinceLastInflated = maxTimeSinceLastInflated - 1f;
+			Deflate();
+		}
+		timeSinceLastInflated += Time.deltaTime;
+
 		anim.SetBool("seesPlayer", seesPlayer);
 		anim.SetBool("canBeginPhasing", canBeginPhasing);
 		anim.SetBool("insideWall", insideWall);
 		anim.SetFloat("speed", speed);
+		anim.SetBool("stunned", stunned);
 
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName("Patrolling")) {
 			state = MonsterState.patrolling;
@@ -347,6 +401,8 @@ public class Monster : MonoBehaviour {
 			state = MonsterState.chasing;
 		} else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Phasing")) {
 			state = MonsterState.phasing;
+		} else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Stunned")) {
+			state = MonsterState.stunned;
 		}
 	}
 

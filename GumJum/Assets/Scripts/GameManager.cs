@@ -12,8 +12,12 @@ public class GameManager : MonoBehaviour
     public int level;
     [HideInInspector]
     public int dicks;
+    [HideInInspector]
+    public int monst;
 
     public static GameManager Instance;
+
+    Animator death_anim;
 
     // Start is called before the first frame update
     void Awake()
@@ -29,21 +33,29 @@ public class GameManager : MonoBehaviour
         lives = 3;
         score = 0;
         level = 1;
-    }
+        monst = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void StartLevel()
-    {
-
+        death_anim = GetComponentInChildren<Animator>();
     }
     
     public void Die(DeathType deathType)
     {
+        death_anim.SetTrigger(deathType.ToString());
+    }
 
+    public void KillMonster(int points)
+    {
+        int score = PlayerPrefs.GetInt("HighScore", 0);
+        PlayerPrefs.SetInt("HighScore", points);
+        //update UI
+        monst--;
+        if (monst <= 0)
+            SceneLoader.Level();
+    }
+
+    public static void GetPineapple()
+    {
+        Debug.Log("GOT PINEAPPLE AAAAAAAAAAAAAAAAAAA");
+        SceneLoader.Level();
     }
 }

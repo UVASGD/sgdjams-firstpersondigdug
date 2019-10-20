@@ -45,15 +45,23 @@ public class Rock : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("FALLING at collide start: " + falling.ToString());
+        //Debug.Log("FALLING at collide start: " + falling.ToString());
 
         if (!falling)
         {
-            Debug.Log("Breaking");
+            //Debug.Log("Breaking");
             return;
         }
 
-        Debug.Log("faaaaaalling");
+        //Debug.Log("faaaaaalling");
+
+        Squishable squish = collision.gameObject.GetComponent<Squishable>();
+
+        if (squish)
+        {
+            print(squish);
+            squish.Squish();
+        }
 
         RockStop block = collision.gameObject.GetComponent<RockStop>();
 
@@ -62,14 +70,6 @@ public class Rock : MonoBehaviour
             Debug.Log("AAAAA GUCK I HIT SOMETHING");
             falling = false;
             block.onDestroy += SupportBreak;
-            return;
-        }
-
-        Squishable squish = collision.gameObject.GetComponent<Squishable>();
-
-        if (squish)
-        {
-            squish.Squish();
             return;
         }
     }

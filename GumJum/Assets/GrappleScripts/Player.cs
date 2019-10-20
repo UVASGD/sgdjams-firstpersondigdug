@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum DeathType { Crush, Goggle, Dragon, Fire, Fall }
 
+[RequireComponent(typeof(Squishable))]
 public class Player : MonoBehaviour
 {
     [HideInInspector]

@@ -11,7 +11,7 @@ public class DecalController : MonoBehaviour {
 
 	[SerializeField]
 	[Tooltip("The number of decals to keep alive at a time.  After this number are around, old ones will be replaced.")]
-	private int maxConcurrentDecals = 10;
+	private int maxConcurrentDecals = 100;
 
 	private Queue<GameObject> decalsInPool;
 	private Queue<GameObject> decalsActiveInWorld;

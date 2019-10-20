@@ -8,7 +8,7 @@ public class Pineapple : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            GameManager.GetPineapple();
+            GameManager.Instance.GetPineapple();
             Destroy(gameObject);
         }
     }

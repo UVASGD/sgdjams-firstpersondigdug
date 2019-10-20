@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    Animator death_anim;
+    Animator end_anim;
+    [HideInInspector]
+    public Player player { get { return FindObjectOfType<Player>(); } }
 
     // Start is called before the first frame update
     void Awake()
@@ -35,27 +37,29 @@ public class GameManager : MonoBehaviour
         level = 1;
         monst = 0;
 
-        death_anim = GetComponentInChildren<Animator>();
+        end_anim = GetComponentInChildren<Animator>();
     }
     
     public void Die(DeathType deathType)
     {
-        death_anim.SetTrigger(deathType.ToString());
+        end_anim.SetTrigger(deathType.ToString());
     }
 
     public void KillMonster(int points)
     {
         int score = PlayerPrefs.GetInt("HighScore", 0);
-        PlayerPrefs.SetInt("HighScore", points);
+        PlayerPrefs.SetInt("HighScore", score+points);
         //update UI
         monst--;
         if (monst <= 0)
-            SceneLoader.Level();
+            end_anim.SetTrigger("MonsterKill");
     }
 
-    public static void GetPineapple()
+    public void GetPineapple()
     {
         Debug.Log("GOT PINEAPPLE AAAAAAAAAAAAAAAAAAA");
-        SceneLoader.Level();
+        int score = PlayerPrefs.GetInt("HighScore", 0);
+        PlayerPrefs.SetInt("HighScore", 500+score);
+        end_anim.SetTrigger("Pineapple");
     }
 }

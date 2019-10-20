@@ -301,7 +301,7 @@ MonoBehaviour:
   prefab: {fileID: 344264230279622552, guid: f76e9f95a886d7e48be22115fd63b59d, type: 3}
   carver: {fileID: 8657061216704351079, guid: a4dcaa404ab394432b98251055e73ebe, type: 3}
   breadth: 2
-  mapDimens: {x: 6, y: 6, z: 6}
+  mapDimens: {x: 16, y: 16, z: 16}
   seamDensityLevel1: 0.1
   seamDensityLevel10: 0.25
   averageSeamSize: 3

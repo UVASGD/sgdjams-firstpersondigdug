@@ -10,9 +10,9 @@ public class ObjectAnim : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        print("HOLA");
+        //print("HOLA");
         anim = GetComponent<Animator>();
-        print(anim);
+        //print(anim);
     }
 
     public void Play(bool level)

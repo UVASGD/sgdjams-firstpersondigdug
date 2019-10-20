@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+	[SerializeField]
     Transform monster_kill;
-    Transform pineapple;
-    Transform crush;
-    Transform goggle;
-    Transform fall;
+	[SerializeField]
+	Transform pineapple;
+	[SerializeField]
+	Transform crush;
+	[SerializeField]
+	Transform goggle;
+	[SerializeField]
+	Transform fall;
     //Transform dragon;
 
     Animator anim;
@@ -22,8 +27,14 @@ public class DeathZone : MonoBehaviour
         crush = transform.FindDeepChild("CrushAnim");
         goggle = transform.FindDeepChild("GoggleAnim");
         fall = transform.FindDeepChild("FallAnim");
-        //dragon = transform.FindDeepChild("DragonAnim");
-    }
+
+		monster_kill.gameObject.SetActive(false);
+		pineapple.gameObject.SetActive(false);
+		crush.gameObject.SetActive(false);
+		goggle.gameObject.SetActive(false);
+		fall.gameObject.SetActive(false);
+		//dragon = transform.FindDeepChild("DragonAnim");
+	}
 
     public void NextLevel()
     {
@@ -41,23 +52,28 @@ public class DeathZone : MonoBehaviour
         switch (type)
         {
             case "MonsterKill":
+				print("Monster Kill!");
                 monster_kill.gameObject.SetActive(true);
                 monster_kill.GetComponent<ObjectAnim>().Play(true);
                 break;
             case "Pineapple":
-                pineapple.gameObject.SetActive(true);
+				print("Pineapple!");
+				pineapple.gameObject.SetActive(true);
                 pineapple.GetComponent<ObjectAnim>().Play(true);
                 break;
             case "Crush":
-                crush.gameObject.SetActive(true);
+				print("Crush!");
+				crush.gameObject.SetActive(true);
                 crush.GetComponent<ObjectAnim>().Play(false);
                 break;
             case "Goggle":
-                goggle.gameObject.SetActive(true);
+				print("Goggle!");
+				goggle.gameObject.SetActive(true);
                 goggle.GetComponent<ObjectAnim>().Play(false);
                 break;
             case "Fall":
-                fall.gameObject.SetActive(true);
+				print("Fall!");
+				fall.gameObject.SetActive(true);
                 fall.GetComponent<ObjectAnim>().Play(false);
                 break;
                 /*

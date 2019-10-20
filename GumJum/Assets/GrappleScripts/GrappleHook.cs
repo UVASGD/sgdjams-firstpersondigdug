@@ -15,12 +15,13 @@ public class GrappleHook : MonoBehaviour
     FixedJoint joint;
     Stickable stuck_target;
     Collider hook_collider;
-    
+    Transform player_cam;
     public Animator anim;
 
     // Start is called before the first frame update
     void Awake()
     {
+        player_cam = Camera.main.transform;
         anim = GetComponentInParent<Animator>();
         can_fire = true;
         player_body = GetComponentInParent<Player>().GetComponent<Rigidbody>();
@@ -79,7 +80,7 @@ public class GrappleHook : MonoBehaviour
         {
             lr.enabled = true;
             RaycastHit check;
-            if (Physics.Raycast(player_body.transform.position, player_body.transform.forward, out check, mine_range))  // If block is in range
+            if (Physics.Raycast(player_cam.position, player_cam.forward, out check, mine_range))  // If block is in range
             {
                 print("AH");
                 if (check.transform.gameObject.CompareTag("Mineable"))

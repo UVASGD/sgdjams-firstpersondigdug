@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapGen : MonoBehaviour
 {
-	public static MapGen instance;
 
     [SerializeField]
     GameObject prefab;
@@ -22,16 +21,17 @@ public class MapGen : MonoBehaviour
     int seams;
 
     [SerializeField]
-    int boiCount;
-	[SerializeField]
-	GameObject[] bois;
-	int boisSpawned;
+    int bois;
 
+    [SerializeField]
+    int rocks;
 
+    [SerializeField]
+    GameObject rock_prefab;
 
-	Vector3 offset;
+    Vector3 offset;
 
-    public MapNode[,,] map;
+    MapNode[,,] map;
 
     static Quaternion[] orientations = {
         Quaternion.Euler(0, 0, 0),
@@ -40,44 +40,41 @@ public class MapGen : MonoBehaviour
         Quaternion.Euler(0, 0, 90),
     };
 
-	private void Awake () {
-		if (instance) {
-			Destroy(gameObject);
-		} else {
-			instance = this;
-		}
-
-		boisSpawned = 0;
-	}
-
-	void Start()
+    void Start()
     {
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
         Allocate();
         CarveSeams();
+        PlaceRocks();
     }
 
     void Allocate()
     {
         map = new MapNode[mapDimens.x, mapDimens.y, mapDimens.z];
 
-        for (int x=0; x<mapDimens.x; x++)
+        for (int x = 0; x < mapDimens.x; x++)
         {
-            for (int y=0; y<mapDimens.y; y++)
+            for (int y = 0; y < mapDimens.y; y++)
             {
-                for (int z=0; z < mapDimens.z; z++)
+                for (int z = 0; z < mapDimens.z; z++)
                 {
                     GameObject obj = Instantiate(prefab, transform);
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
 
                     map[x, y, z] = obj.GetComponent<MapNode>();
+
+                    if (x == 0 || z == 0 || y == 0 || x == mapDimens.x - 1 || z == mapDimens.z - 1)
+                    {
+                        map[x, y, z].Block.tag = "Untagged";
+                    }
                 }
             }
         }
     }
 
-    void CarveSeams() {
+    void CarveSeams()
+    {
         Vector3 position;
         int height;
         float radius;
@@ -92,7 +89,7 @@ public class MapGen : MonoBehaviour
                 ) - offset;
             height = Random.Range(2, 4);
             radius = 0.5f;
-            spawn_boi = i < boiCount;
+            spawn_boi = i < bois;
 
             CarveSeam(
                 position,
@@ -127,14 +124,53 @@ public class MapGen : MonoBehaviour
 
     void SpawnBoiAt(Vector3 center)
     {
-		print("Spawn boi!!!");
-		int index = bois.Length - 1;
-		if ( boisSpawned < Mathf.CeilToInt(boiCount * 2 / 3)) {
-			index = Random.Range(0, bois.Length - 1);
-		}
+        // TODO: Spawn Boi Here
+        Instantiate(prefab, transform);
+    }
 
-		boisSpawned++;
-        GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
-		print(boi.name + ", " + boi.transform.position);
+    void PlaceRocks()
+    {
+        for (int i = 0; i < rocks; i++)
+        {
+            Vector3Int at;
+            MapNode inNode;
+            bool goodSpot = false;
+
+            int tries = 0;
+            while (!goodSpot)
+            {
+                at = new Vector3Int(
+                Random.Range(1, mapDimens.x - 1),
+                Random.Range(1, mapDimens.y - 1),
+                Random.Range(1, mapDimens.z - 1)
+                );
+                inNode = map[at.x, at.y, at.z];
+
+                if (!inNode.Broken)
+                {
+                    goodSpot = true;
+                    //MapNode atNode = map[at.x, at.y, at.z];
+                    //atNode.Break();
+
+                    PlaceRock(at, inNode.Block);
+                }
+
+                if (tries > 50)
+                {
+                    Debug.Log("i screm");
+                    break;
+
+                }
+                tries++;
+            }
+        }
+    }
+
+
+    void PlaceRock(Vector3Int at, Block over)
+    {
+        Rock rock = Instantiate(rock_prefab, transform).GetComponent<Rock>();
+        rock.transform.localPosition = (at - offset) * breadth;
+        rock.SetSupportBlock(over);
     }
 }

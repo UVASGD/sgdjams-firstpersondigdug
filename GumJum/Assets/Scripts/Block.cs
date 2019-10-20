@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Stickable))]
 public class Block : MonoBehaviour
 {
     public Event onBreak;
@@ -9,7 +10,7 @@ public class Block : MonoBehaviour
 
     public void Break()
     {
-        Debug.Log("oof ouch I die");
+        //Debug.Log("oof ouch I die");
         onBreak?.Invoke();
         // Do other stuff
         Destroy(gameObject);

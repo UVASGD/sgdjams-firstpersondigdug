@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ac4ed0ba68099408a0fa2cefdd600c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineRange: 5
+  anim: {fileID: 0}
 --- !u!1 &5397875595185505380
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 0c90d509ec71da146801465b8a539134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,7 +136,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -181,8 +181,8 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 25
+    numCapVertices: 25
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b49fd67842a1e4a85e6dc01059ffd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineRange: 0
   start_point: {fileID: 0}
+  render_point: {fileID: 0}
 --- !u!64 &5397875596154843701
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -224,6 +224,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5397875596387932989}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: ebb7642b23be8684f854deea80cac210,
+        type: 3}
+      propertyPath: m_Name
+      value: gun
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ebb7642b23be8684f854deea80cac210,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -293,11 +298,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.30000013
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: ebb7642b23be8684f854deea80cac210,
-        type: 3}
-      propertyPath: m_Name
-      value: gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebb7642b23be8684f854deea80cac210, type: 3}

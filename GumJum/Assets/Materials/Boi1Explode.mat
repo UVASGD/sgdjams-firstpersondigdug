@@ -78,6 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_22C50565: 0
     - Vector1_34123ECC: 3
     - Vector1_561DD75D: 0
     - Vector1_5DC6E429: 0
@@ -102,6 +103,7 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SquishAmount: 0
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1

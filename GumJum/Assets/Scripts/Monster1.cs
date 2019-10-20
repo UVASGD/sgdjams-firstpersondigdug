@@ -11,7 +11,7 @@ public enum MonsterState {
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Stickable))]
 [RequireComponent(typeof(Squishable))]
-public class Monster : MonoBehaviour {
+public class Monster1 : MonoBehaviour {
 	public GameObject player;
 	public bool seesPlayer;
 	public bool canBeginPhasing;

@@ -19,29 +19,20 @@ public class MapGen : MonoBehaviour
     Vector3Int mapDimens;
 
     [SerializeField]
-    float seamDensityLevel1 = 0.1f;
-    [SerializeField]
-    float seamDensityLevel10 = 0.25f;
-
-    [SerializeField]
-    int averageSeamSize = 3;//3 blocks
+    int averageSeamSize = 3;
     int numseams;
-
-    [SerializeField]
-    float additionalBoiChanceLevel1 = 0f;
-    [SerializeField]
-    float additionalBoiChanceLevel10 = 0.4f;
-
-    float additionalBoiSpawnChance;
-
 
     int boiCount;
     [SerializeField]
     GameObject[] bois;
+
     [HideInInspector]
     public int boisSpawned;
 
+    [SerializeField]
+    GameObject pineapple;
 
+    int rocks;
 
     Vector3 offset;
 
@@ -72,22 +63,16 @@ public class MapGen : MonoBehaviour
     {
         int currentlevel = GameManager.Instance.level;
         float widthScaleFactor = Mathf.Max(1f, 0.7f * Mathf.Pow(currentlevel, 1f / 3f));
-        mapDimens.x = (int)(mapDimens.x * widthScaleFactor);
-        mapDimens.y = (int)(mapDimens.y * widthScaleFactor);
-        mapDimens.z = (int)(mapDimens.z * widthScaleFactor);
-        int volume = mapDimens.x * mapDimens.y * mapDimens.z;
-        float levelFraction = (float)(currentlevel - 1) / (10 - 1);
-        float seamDensity = Mathf.Lerp(seamDensityLevel1, seamDensityLevel10, levelFraction);
-        additionalBoiSpawnChance = Mathf.Lerp(additionalBoiChanceLevel1, additionalBoiChanceLevel10, levelFraction);
-        numseams = (int)(volume * seamDensity / averageSeamSize);
 
-        //print("currentlevel: " + currentlevel);
-        //print("widthScaleFactor: " + widthScaleFactor);
-        //print("volume: " + volume);
-        //print("levelFraction: " + levelFraction);
-        //print("seamDensity: " + seamDensity);
-        //print("additionalBoiSpawnChance: " + additionalBoiSpawnChance);
-        //print("numseams: " + numseams);
+        mapDimens += new Vector3Int(1, 1, 1) * (currentlevel * 2);
+
+        numseams = 3 + currentlevel;
+
+        rocks = 5 + (currentlevel * 2);
+
+        print("currentlevel: " + currentlevel);
+        print("widthScaleFactor: " + widthScaleFactor);
+        print("numseams: " + numseams);
 
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
@@ -109,17 +94,22 @@ public class MapGen : MonoBehaviour
                     obj.transform.localPosition = (new Vector3(x, y, z) - offset) * breadth;
 
                     map[x, y, z] = obj.GetComponent<MapNode>();
+
+
+
                 }
             }
         }
     }
+
+    enum Spawn { None, Boi, Pineapple }
 
     void CarveSeams()
     {
         Vector3 position;
         int height;
         float radius;
-        bool spawnBoi;
+        Spawn spawnOpt;
 
         for (int i = 0; i < numseams; i++)
         {
@@ -130,13 +120,17 @@ public class MapGen : MonoBehaviour
                 ) - offset;
             height = Random.Range(averageSeamSize - 1, averageSeamSize + 1);
             radius = 0.5f;
-            spawnBoi = true;
+
+            if (i == 0)
+                spawnOpt = Spawn.Pineapple;
+            else
+                spawnOpt = Spawn.Boi;
 
             CarveSeam(
                 position,
                 height,
                 radius,
-                spawnBoi,
+                spawnOpt,
                 orientations[Random.Range(0, orientations.Length)]
             );
         }
@@ -145,12 +139,12 @@ public class MapGen : MonoBehaviour
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
             radius = 0.25f,
-            false,
+            Spawn.None,
             orientations[0]
         );
     }
 
-    void CarveSeam(Vector3 center, float height, float radius, bool spawnBoi, Quaternion orientation)
+    void CarveSeam(Vector3 center, float height, float radius, Spawn spawnOpt, Quaternion orientation)
     {
         Carver carve = Instantiate(carver, transform);
         carve.transform.localPosition = center;
@@ -159,28 +153,33 @@ public class MapGen : MonoBehaviour
 
         carve.SetDimens(height * breadth, radius * breadth);
 
-        if (spawnBoi)
+        if (spawnOpt == Spawn.Boi)
         {
             SpawnBoiAt(center);
-            float dice = Random.value;
-            if (dice < additionalBoiSpawnChance)
-            {
-                SpawnBoiAt(center);
-            }
+        }
+        else if (spawnOpt == Spawn.Pineapple)
+        {
+            SpawnPineappleAt(center);
         }
     }
 
     void SpawnBoiAt(Vector3 center)
     {
-        //print("Spawn boi!!!");
-        int index = bois.Length - 1;
+        /*int index = bois.Length - 1;
         if (boisSpawned < Mathf.CeilToInt(boiCount * 2 / 3))
         {
             index = Random.Range(0, bois.Length - 1);
-        }
+        }*/
+
+        int index = Random.Range(0, bois.Length - 1);
 
         boisSpawned++;
         GameObject boi = Instantiate(bois[index], center, Quaternion.identity);
-        //print(boi.name + ", " + boi.transform.position);
+    }
+
+    void SpawnPineappleAt(Vector3 center)
+    {
+        if (pineapple)
+            Instantiate(pineapple, center, Quaternion.identity);
     }
 }

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -436,7 +436,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0.6427877, y: -0.76604444, z: 0, w: 0.49999994}
+  m_BoundingSphereOverride: {x: NaN, y: 2.715159e+22, z: 1e-45, w: 5.54e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1014,7 +1014,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 450, y: 50}
+  m_SizeDelta: {x: 460, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498656678
 MonoBehaviour:
@@ -1035,7 +1035,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Ryan Kann | Wyatt Joyner | Simon Whittle | Reza Mirzaiee | Jack Herd | Nathaniel
-    Saxe | And the Rest!
+    Saxe | Julian McClinton | Jeffrey Wang | Lana Parker
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e816f35134b384348bb4c6cd1c30407f, type: 2}
   m_sharedMaterial: {fileID: 5858184505789153282, guid: e816f35134b384348bb4c6cd1c30407f,
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 513
+  m_textAlignment: 528
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1105,10 +1105,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1498656678}
-    characterCount: 101
+    characterCount: 133
     spriteCount: 0
-    spaceCount: 20
-    wordCount: 15
+    spaceCount: 25
+    wordCount: 18
     linkCount: 0
     lineCount: 3
     pageCount: 1
@@ -1443,7 +1443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1814117031
 RectTransform:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class GrappleHook : MonoBehaviour
 
 
     [Header("FX OBJECTS")]
-    public GameObject crank_fx, return_fx, fire_fx;
+    public GameObject crank_fx, return_fx, fire_fx, pump_fx;
 
 
     // Start is called before the first frame update

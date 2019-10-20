@@ -60,7 +60,7 @@ public class Monster : MonoBehaviour {
 
 	private Material mat;
 
-	public GameObject bloodSplatter;
+	public GameObject bloodSplatter, deflate, pop;
 	
 
 	private void Start () {
@@ -138,8 +138,8 @@ public class Monster : MonoBehaviour {
 					//mat = newMat;
 					transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material = newMat;
 					mat = transform.Find("Body").GetComponent<SkinnedMeshRenderer>().material;
-					GameObject splatInstance = Instantiate(bloodSplatter, transform.position + transform.up * 1.0f, Quaternion.identity);
-					Destroy(splatInstance, 5f);
+                    if (pop) Instantiate(pop, transform.position, Quaternion.identity);
+                    Instantiate(bloodSplatter, transform.position + transform.up * 1.0f, Quaternion.identity);
 					GenerateDeathRaycasts(100);
 				}
 			}
@@ -148,7 +148,7 @@ public class Monster : MonoBehaviour {
 		if (inflationLevel >= 1f) {
 			inflationLevel = 1f;
 			mat.SetFloat("_ExplosionAmount", inflationLevel);
-			Die();
+            Die();
 		}
 		inflating = false;
 	}
@@ -184,7 +184,8 @@ public class Monster : MonoBehaviour {
 		}
 		stunned = true;
 		transform.SetParent(null);
-		Destroy(parent.gameObject);
+        Instantiate(bloodSplatter, transform.position + transform.up * 1.0f, Quaternion.identity);
+        Destroy(parent.gameObject);
 		Die(2f);
 	}
 
@@ -207,6 +208,7 @@ public class Monster : MonoBehaviour {
 		//print("Target:")
 		while (inflationLevel > targetInflationLevel) {
 			if (inflating) break;
+            if (deflate) Instantiate(deflate, transform);
 			//print("ASDasdfadf");
 			inflationLevel -= 0.5f * Time.deltaTime;
 			mat.SetFloat("_ExplosionAmount",	 inflationLevel);

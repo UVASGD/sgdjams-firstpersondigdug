@@ -46,7 +46,11 @@ public class MainMenuController : MonoBehaviour {
         } else if(selected == 1) {
             SceneLoader.Credits();
         } else if(selected == 2) {
-            Application.Quit();
-        }
-    }
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
+		}
+	}
 }

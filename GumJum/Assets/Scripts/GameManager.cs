@@ -69,9 +69,11 @@ public class GameManager : MonoBehaviour
     {
         level++;
         level_done = false;
+        score += 400;
         if (gpUI)
         {
             gpUI.UpdateLevel(level);
+            gpUI.UpdateScore(level);
         }
         min_y = -500;
         SceneLoader.Level();

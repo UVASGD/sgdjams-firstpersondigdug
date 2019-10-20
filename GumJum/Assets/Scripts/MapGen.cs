@@ -37,6 +37,9 @@ public class MapGen : MonoBehaviour
 
     int rocks;
 
+    [SerializeField]
+    GameObject rockPrefab;
+
     Vector3 offset;
 
     public MapNode[,,] map;
@@ -67,13 +70,13 @@ public class MapGen : MonoBehaviour
         int currentlevel = GameManager.Instance.level;
         float widthScaleFactor = Mathf.Max(1f, 0.7f * Mathf.Pow(currentlevel, 1f / 3f));
 
-        mapDimens += new Vector3Int(1, 1, 1) * (currentlevel * 2);
+        mapDimens += new Vector3Int(1, 1, 1) * (currentlevel / 2) * 2;
 
         transform.position -= new Vector3(0f, mapDimens.y / 2f, 0f) * breadth;
 
         numseams = 3 + currentlevel;
 
-        rocks = 5 + (currentlevel * 2);
+        rocks = mapDimens.x + (currentlevel * 2);
 
         print("currentlevel: " + currentlevel);
         print("widthScaleFactor: " + widthScaleFactor);
@@ -85,6 +88,7 @@ public class MapGen : MonoBehaviour
 
         Allocate();
         CarveSeams();
+        PlaceRocks();
 
         if (bounder)
         {
@@ -197,5 +201,52 @@ public class MapGen : MonoBehaviour
     {
         if (pineapple)
             Instantiate(pineapple, transform.position + center, Quaternion.identity);
+    }
+
+    void PlaceRocks()
+    {
+        for (int i = 0; i < rocks; i++)
+        {
+            Vector3Int at;
+            MapNode inNode;
+            bool goodSpot = false;
+
+            int tries = 0;
+            while (!goodSpot)
+            {
+                at = new Vector3Int(
+                Random.Range(1, mapDimens.x - 1),
+                Random.Range(1, mapDimens.y - 1),
+                Random.Range(1, mapDimens.z - 1)
+                );
+                inNode = map[at.x, at.y, at.z];
+
+                if (!inNode.Broken)
+                {
+                    goodSpot = true;
+
+                    PlaceRock(at, inNode.Block);
+                }
+
+                if (tries > 50)
+                {
+                    Debug.Log("i screm");
+                    break;
+
+                }
+                tries++;
+            }
+        }
+    }
+
+
+    void PlaceRock(Vector3Int at, Block over)
+    {
+        if (rockPrefab)
+        {
+            Rock rock = Instantiate(rockPrefab, transform).GetComponent<Rock>();
+            rock.transform.localPosition = (at - offset) * breadth;
+            rock.SetSupportBlock(over);
+        }
     }
 }

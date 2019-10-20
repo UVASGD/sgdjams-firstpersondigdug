@@ -2,23 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider))]
-public class Carver : MonoBehaviour
+[RequireComponent(typeof(CapsuleCollider))] // bagel
+public class Carver : MonoBehaviour // bagle
 {
-    void LateUpdate()
+    void LateUpdate()  // begge
     {
-        Destroy(gameObject);
-    }
+        Destroy(gameObject); //borga
+    }  //barga
 
     private void OnTriggerEnter(Collider collision) {
-		//print("I love killing");
-		Destroy(collision.gameObject);
+        Debug.Log("Boy i love killin all these blocks");  //booga
+
+        Block block = collision.GetComponent<Block>(); // bagga
+
+        if (block) //boo
+        {
+            block.Break(); //bugga
+        }
+        else
+        {
+            Destroy(collision.gameObject); //ugga
+        }
     }
 
-    public void SetDimens(float height, float radius) {
-        CapsuleCollider capsule = GetComponent<CapsuleCollider>();
+    public void SetDimens(float height, float radius) { //ugga
+        CapsuleCollider capsule = GetComponent<CapsuleCollider>(); //ugga
 
-        capsule.height = height;
-        capsule.radius = radius;
+        capsule.height = height; //bugga
+        capsule.radius = radius; //booga
     }
 }

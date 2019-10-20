@@ -32,6 +32,9 @@ public class MapGen : MonoBehaviour
     [SerializeField]
     GameObject pineapple;
 
+    [SerializeField]
+    GameObject bounder;
+
     int rocks;
 
     Vector3 offset;
@@ -76,8 +79,20 @@ public class MapGen : MonoBehaviour
 
         offset = new Vector3(mapDimens.x, mapDimens.y, mapDimens.z) * 0.5f;
 
+        Debug.Log("offset: " + offset.ToString());
+
         Allocate();
         CarveSeams();
+
+        if (bounder)
+        {
+            GameObject bound1 = Instantiate(bounder, transform);
+
+            bound1.transform.localScale = new Vector3(mapDimens.x, mapDimens.y * 2f, mapDimens.z) * breadth;
+            bound1.transform.localPosition = new Vector3(0f, mapDimens.y, 0f) * breadth;
+            bound1.transform.localPosition -= new Vector3(breadth / 2f, 0f, breadth / 2f);
+            //bound1.transform.localPosition = (new Vector3());
+        }
     }
 
     void Allocate()
@@ -138,7 +153,7 @@ public class MapGen : MonoBehaviour
         CarveSeam(
             new Vector3(0f, mapDimens.y / 2, 0f),
             mapDimens.y / 2,
-            radius = 0.25f,
+            radius = 0.5f,
             Spawn.None,
             orientations[0]
         );

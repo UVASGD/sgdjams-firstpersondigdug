@@ -766,8 +766,8 @@ Camera:
   m_GameObject: {fileID: 4727706360127654804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1498,16 +1498,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6882256891562049794}
     m_Modifications:
-    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
-        type: 3}
-      propertyPath: m_Name
-      value: GrappleGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5397875596387932989, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1562,6 +1552,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Name
+      value: GrappleGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397875596387932988, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5397875596387932978, guid: 7d9799a2c8778174ba26545cd4b5bb8c,
         type: 3}
@@ -1658,11 +1658,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4841698085119615811}
     m_Modifications:
-    - target: {fileID: 3063302113612226216, guid: 538570ceea9c18a4a9365bf66830cc7b,
-        type: 3}
-      propertyPath: m_Name
-      value: Jetpack Fuel Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 3063302113612226223, guid: 538570ceea9c18a4a9365bf66830cc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1767,6 +1762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063302113612226216, guid: 538570ceea9c18a4a9365bf66830cc7b,
+        type: 3}
+      propertyPath: m_Name
+      value: Jetpack Fuel Bar
       objectReference: {fileID: 0}
     - target: {fileID: 3063302112394733834, guid: 538570ceea9c18a4a9365bf66830cc7b,
         type: 3}
